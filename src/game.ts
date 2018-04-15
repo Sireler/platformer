@@ -1,6 +1,7 @@
 import {Background} from "./background";
 import {Screen} from "./screen";
 import {Character} from "./character";
+import {KeyboardDriver} from "./KeyboardDriver";
 
 export class Game
 {
@@ -18,6 +19,7 @@ export class Game
     screenSize: Screen;
 
     character: Character;
+    keyboard: KeyboardDriver;
 
     // game loop
     interval: number;
@@ -27,6 +29,8 @@ export class Game
     constructor(screen)
     {
         this.screenSize = new Screen();
+
+        this.keyboard = new KeyboardDriver();
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -67,6 +71,7 @@ export class Game
             this.background.sky.position.x += 2;
             // ---
 
+            this.character.isMovedByUser(this.keyboard);
             this.character.update(this.PHYS['gravity'], this.MAX_Y);
 
             this.character.draw(this.ctx);

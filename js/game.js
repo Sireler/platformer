@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character"], function (require, exports, background_1, screen_1, character_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -10,6 +10,7 @@ define(["require", "exports", "./background", "./screen", "./character"], functi
                 gravity: 0.4
             };
             this.screenSize = new screen_1.Screen();
+            this.keyboard = new KeyboardDriver_1.KeyboardDriver();
             this.screen = screen;
             screen.width = this.screenSize.width;
             screen.height = this.screenSize.height;
@@ -35,6 +36,7 @@ define(["require", "exports", "./background", "./screen", "./character"], functi
                 }
                 _this.background.sky.position.x += 2;
                 // ---
+                _this.character.isMovedByUser(_this.keyboard);
                 _this.character.update(_this.PHYS['gravity'], _this.MAX_Y);
                 _this.character.draw(_this.ctx);
             }, 1000 / this.FPS);

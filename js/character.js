@@ -47,6 +47,26 @@ define(["require", "exports", "./DrawableSet", "./size", "./position"], function
                 //
             }
         };
+        Character.prototype.isMovedByUser = function (keyboard) {
+            console.log(keyboard);
+            // key: 65 - 'A'
+            if (keyboard.isPressed(65)) {
+                this.moveLeft();
+            }
+            // key: 68 - 'D'
+            if (keyboard.isPressed(68)) {
+                this.moveRight();
+            }
+            // key: 32 - 'SPACE'
+            if (keyboard.isPressed(32)) {
+                this.jump();
+            }
+        };
+        Character.prototype.jump = function () {
+            if (!this.stands)
+                return;
+            this.impulse.y = -this.jumpPower;
+        };
         Character.prototype.moveLeft = function () {
             this.direction = "left";
             this.position.x -= this.speed;

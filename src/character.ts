@@ -1,6 +1,7 @@
 import {DrawableSet} from "./DrawableSet";
 import {Size} from "./size";
 import {ObjectPosition} from "./position";
+import {KeyboardDriver} from "./KeyboardDriver";
 
 export class Character extends DrawableSet
 {
@@ -56,6 +57,31 @@ export class Character extends DrawableSet
             //
         }
 
+    }
+
+    isMovedByUser(keyboard: KeyboardDriver)
+    {
+        console.log(keyboard);
+
+        // key: 65 - 'A'
+        if(keyboard.isPressed(65)){
+            this.moveLeft();
+        }
+        // key: 68 - 'D'
+        if(keyboard.isPressed(68)){
+            this.moveRight();
+        }
+        // key: 32 - 'SPACE'
+        if(keyboard.isPressed(32)){
+            this.jump();
+        }
+    }
+
+    jump()
+    {
+        if (!this.stands) return;
+
+        this.impulse.y = -this.jumpPower;
     }
 
     moveLeft()
