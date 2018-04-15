@@ -3,7 +3,8 @@
     "module": "amd",
     "target": "es5",
     "alwaysStrict": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "js/"
   },
   "Files": [
     "*.tsc"
