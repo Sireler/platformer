@@ -1,14 +1,23 @@
 import {Background} from "./background";
 import {Screen} from "./screen";
+import {Character} from "./character";
 
 export class Game
 {
     FPS: number = 25;
     MAX_Y: number = 500;
 
+    // Физика
+    PHYS: object = {
+        gravity: 0.4
+    };
+    //---
+
     screen: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     screenSize: Screen;
+
+    character: Character;
 
     // game loop
     interval: number;
@@ -24,6 +33,15 @@ export class Game
         screen.height = this.screenSize.height;
 
         this.background = {};
+
+        // Создание персонажа
+        this.character = new Character({
+            left: 'sprites/man_left.png',
+            right: 'sprites/man_right.png'
+        });
+
+        this.character.position.set(400, 300);
+        //---
 
         this.ctx = screen.getContext("2d");
         this.loadBackground();
@@ -48,6 +66,12 @@ export class Game
 
             this.background.sky.position.x += 2;
             // ---
+
+            this.character.update(this.PHYS['gravity'], this.MAX_Y);
+
+            this.character.draw(this.ctx);
+
+
 
 
         }, 1000 / this.FPS);

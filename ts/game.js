@@ -1,15 +1,26 @@
-define(["require", "exports", "./background", "./screen"], function (require, exports, background_1, screen_1) {
+define(["require", "exports", "./background", "./screen", "./character"], function (require, exports, background_1, screen_1, character_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
         function Game(screen) {
             this.FPS = 25;
             this.MAX_Y = 500;
+            // Физика
+            this.PHYS = {
+                gravity: 0.4
+            };
             this.screenSize = new screen_1.Screen();
             this.screen = screen;
             screen.width = this.screenSize.width;
             screen.height = this.screenSize.height;
             this.background = {};
+            // Создание персонажа
+            this.character = new character_1.Character({
+                left: 'sprites/man_left.png',
+                right: 'sprites/man_right.png'
+            });
+            this.character.position.set(400, 300);
+            //---
             this.ctx = screen.getContext("2d");
             this.loadBackground();
             this.start();
@@ -24,6 +35,8 @@ define(["require", "exports", "./background", "./screen"], function (require, ex
                 }
                 _this.background.sky.position.x += 2;
                 // ---
+                _this.character.update(_this.PHYS['gravity'], _this.MAX_Y);
+                _this.character.draw(_this.ctx);
             }, 1000 / this.FPS);
         };
         //
