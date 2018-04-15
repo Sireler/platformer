@@ -33,9 +33,9 @@ export class Character extends DrawableSet
         );
     }
 
-    draw(ctx)
+    draw(ctx, camera)
     {
-        super.draw(ctx, this.direction);
+        super.draw(ctx, this.direction, camera);
     }
 
     update(gravity: number, groundY: number)

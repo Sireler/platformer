@@ -15,12 +15,12 @@ define(["require", "exports", "./position"], function (require, exports, positio
                 this.textures[name].src = this.srcs[name];
             }
         };
-        DrawableSet.prototype.draw = function (ctx, name) {
+        DrawableSet.prototype.draw = function (ctx, name, camera) {
             if (!this.size) {
-                ctx.drawImage(this.textures[name], this.position.x, this.position.y);
+                ctx.drawImage(this.textures[name], this.position.x - camera.position.x, this.position.y - camera.position.y);
             }
             else {
-                ctx.drawImage(this.textures[name], this.position.x, this.position.y, this.size.width, this.size.height);
+                ctx.drawImage(this.textures[name], this.position.x - camera.position.x, this.position.y - camera.position.y, this.size.width, this.size.height);
             }
         };
         return DrawableSet;

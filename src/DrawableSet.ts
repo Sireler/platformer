@@ -25,19 +25,19 @@ export class DrawableSet
         }
     }
 
-    draw(ctx: CanvasRenderingContext2D, name: string)
+    draw(ctx: CanvasRenderingContext2D, name: string, camera): void
     {
         if (!this.size) {
             ctx.drawImage(
                 this.textures[name],
-                this.position.x,
-                this.position.y
+                this.position.x - camera.position.x,
+                this.position.y - camera.position.y
             );
         } else {
             ctx.drawImage(
                 this.textures[name],
-                this.position.x,
-                this.position.y,
+                this.position.x - camera.position.x,
+                this.position.y - camera.position.y,
                 this.size.width,
                 this.size.height
             );

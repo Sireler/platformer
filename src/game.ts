@@ -2,6 +2,7 @@ import {Background} from "./background";
 import {Screen} from "./screen";
 import {Character} from "./character";
 import {KeyboardDriver} from "./KeyboardDriver";
+import {Camera} from "./Camera";
 
 export class Game
 {
@@ -19,7 +20,9 @@ export class Game
     screenSize: Screen;
 
     character: Character;
+
     keyboard: KeyboardDriver;
+    camera: Camera;
 
     // game loop
     interval: number;
@@ -29,8 +32,8 @@ export class Game
     constructor(screen)
     {
         this.screenSize = new Screen();
-
         this.keyboard = new KeyboardDriver();
+        this.camera = new Camera();
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -65,7 +68,7 @@ export class Game
 
             // Draw background
             for (var key in this.background) {
-                this.background[key].draw(this.ctx);
+                this.background[key].draw(this.ctx, this.camera);
             }
 
             this.background.sky.position.x += 2;
@@ -74,10 +77,13 @@ export class Game
             this.character.isMovedByUser(this.keyboard);
             this.character.update(this.PHYS['gravity'], this.MAX_Y);
 
-            this.character.draw(this.ctx);
+            this.character.draw(this.ctx, this.camera);
 
 
-
+            this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
+            if (this.character.position.y < this.screenSize.height / 2) {
+                this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
+            }
 
         }, 1000 / this.FPS);
     }
@@ -86,8 +92,11 @@ export class Game
     loadBackground()
     {
         this.background.sky = new Background('sprites/bg_sky.png');
+        this.background.sky.cameraC = 0;
         this.background.forest1 = new Background('sprites/bg_forest_1.png');
+        this.background.forest1.cameraC = 0.05;
         this.background.forest2 = new Background('sprites/bg_forest_2.png');
+        this.background.forest2.cameraC = 0.1;
         this.background.ground = new Background('sprites/bg_ground.png');
     }
 }
