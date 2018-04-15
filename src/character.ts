@@ -61,8 +61,6 @@ export class Character extends DrawableSet
 
     isMovedByUser(keyboard: KeyboardDriver)
     {
-        console.log(keyboard);
-
         // key: 65 - 'A'
         if(keyboard.isPressed(65)){
             this.moveLeft();

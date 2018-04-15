@@ -48,7 +48,6 @@ define(["require", "exports", "./DrawableSet", "./size", "./position"], function
             }
         };
         Character.prototype.isMovedByUser = function (keyboard) {
-            console.log(keyboard);
             // key: 65 - 'A'
             if (keyboard.isPressed(65)) {
                 this.moveLeft();
