@@ -1,3 +1,5 @@
+import {Screen} from "./screen";
+
 export class ObjectPosition
 {
     x: number;
@@ -26,5 +28,11 @@ export class ObjectPosition
             this.x,
             this.y
         );
+    }
+
+    normalize(screenSize: Screen): void
+    {
+        this.x = (this.x % screenSize.width) % screenSize.width;
+        this.y = (this.y % screenSize.height) % screenSize.height;
     }
 }

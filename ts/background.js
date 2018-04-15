@@ -15,11 +15,16 @@ define(["require", "exports", "./drawable", "./size", "./screen"], function (req
         __extends(Background, _super);
         function Background(src) {
             var _this = _super.call(this, src) || this;
-            var screenSize = new screen_1.Screen();
-            _this.size = new size_1.Size(screenSize.width, screenSize.height);
+            _this.screenSize = new screen_1.Screen();
+            _this.size = new size_1.Size(_this.screenSize.width, _this.screenSize.height);
             return _this;
         }
         Background.prototype.draw = function (ctx) {
+            this.position.normalize(this.screenSize);
+            _super.prototype.draw.call(this, ctx);
+            this.position.x -= this.screenSize.width;
+            _super.prototype.draw.call(this, ctx);
+            this.position.x += this.screenSize.width * 2;
             _super.prototype.draw.call(this, ctx);
         };
         return Background;

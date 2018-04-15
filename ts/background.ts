@@ -5,19 +5,27 @@ import {Screen} from "./screen";
 export class Background extends Drawable
 {
     size: Size;
+    screenSize: Screen;
 
     constructor(src: string)
     {
         super(src);
-        let screenSize = new Screen();
+        this.screenSize = new Screen();
         this.size = new Size(
-            screenSize.width,
-            screenSize.height
+            this.screenSize.width,
+            this.screenSize.height
         );
     }
 
     draw(ctx: CanvasRenderingContext2D): void
     {
+        this.position.normalize(this.screenSize);
+
+        super.draw(ctx);
+
+        this.position.x -= this.screenSize.width;
+        super.draw(ctx);
+        this.position.x += this.screenSize.width * 2;
         super.draw(ctx);
     }
 }

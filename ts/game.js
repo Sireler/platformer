@@ -1,17 +1,15 @@
-define(["require", "exports", "./background"], function (require, exports, background_1) {
+define(["require", "exports", "./background", "./screen"], function (require, exports, background_1, screen_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
         function Game(screen) {
-            this.FPS = 60;
-            this.SCREEN_WIDTH = 800;
-            this.SCREEN_HEIGHT = 600;
+            this.FPS = 25;
             this.MAX_Y = 500;
-            var FPS = 60;
+            this.screenSize = new screen_1.Screen();
             this.screen = screen;
-            screen.width = 800;
-            screen.height = 600;
-            this.background = [];
+            screen.width = this.screenSize.width;
+            screen.height = this.screenSize.height;
+            this.background = {};
             this.ctx = screen.getContext("2d");
             this.loadBackground();
             this.start();
@@ -19,17 +17,21 @@ define(["require", "exports", "./background"], function (require, exports, backg
         Game.prototype.start = function () {
             var _this = this;
             this.interval = window.setInterval(function () {
-                _this.ctx.clearRect(0, 0, _this.SCREEN_WIDTH, _this.SCREEN_HEIGHT);
-                _this.background.forEach(function (el) {
-                    el.draw(_this.ctx);
-                });
+                _this.ctx.clearRect(0, 0, _this.screenSize.width, _this.screenSize.height);
+                // Draw background
+                for (var key in _this.background) {
+                    _this.background[key].draw(_this.ctx);
+                }
+                _this.background.sky.position.x += 2;
+                // ---
             }, 1000 / this.FPS);
         };
+        //
         Game.prototype.loadBackground = function () {
-            this.background.push(new background_1.Background('sprites/bg_sky.png'));
-            this.background.push(new background_1.Background('sprites/bg_forest_1.png'));
-            this.background.push(new background_1.Background('sprites/bg_forest_2.png'));
-            this.background.push(new background_1.Background('sprites/bg_ground.png'));
+            this.background.sky = new background_1.Background('sprites/bg_sky.png');
+            this.background.forest1 = new background_1.Background('sprites/bg_forest_1.png');
+            this.background.forest2 = new background_1.Background('sprites/bg_forest_2.png');
+            this.background.ground = new background_1.Background('sprites/bg_ground.png');
         };
         return Game;
     }());
