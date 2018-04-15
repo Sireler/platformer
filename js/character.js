@@ -31,8 +31,8 @@ define(["require", "exports", "./DrawableSet", "./size", "./position"], function
             enumerable: true,
             configurable: true
         });
-        Character.prototype.draw = function (ctx) {
-            _super.prototype.draw.call(this, ctx, this.direction);
+        Character.prototype.draw = function (ctx, camera) {
+            _super.prototype.draw.call(this, ctx, this.direction, camera);
         };
         Character.prototype.update = function (gravity, groundY) {
             this.position.move(this.impulse.x, this.impulse.y);
@@ -48,7 +48,6 @@ define(["require", "exports", "./DrawableSet", "./size", "./position"], function
             }
         };
         Character.prototype.isMovedByUser = function (keyboard) {
-            console.log(keyboard);
             // key: 65 - 'A'
             if (keyboard.isPressed(65)) {
                 this.moveLeft();

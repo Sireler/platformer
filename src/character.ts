@@ -33,9 +33,9 @@ export class Character extends DrawableSet
         );
     }
 
-    draw(ctx)
+    draw(ctx, camera)
     {
-        super.draw(ctx, this.direction);
+        super.draw(ctx, this.direction, camera);
     }
 
     update(gravity: number, groundY: number)
@@ -61,8 +61,6 @@ export class Character extends DrawableSet
 
     isMovedByUser(keyboard: KeyboardDriver)
     {
-        console.log(keyboard);
-
         // key: 65 - 'A'
         if(keyboard.isPressed(65)){
             this.moveLeft();

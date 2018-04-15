@@ -19,13 +19,16 @@ define(["require", "exports", "./drawable", "./size", "./screen"], function (req
             _this.size = new size_1.Size(_this.screenSize.width, _this.screenSize.height);
             return _this;
         }
-        Background.prototype.draw = function (ctx) {
+        Background.prototype.draw = function (ctx, camera) {
             this.position.normalize(this.screenSize);
-            _super.prototype.draw.call(this, ctx);
+            var offsetX = camera.position.x * this.cameraC;
+            offsetX = offsetX - (offsetX % this.screenSize.width);
+            this.position.x = offsetX;
+            _super.prototype.draw.call(this, ctx, camera);
             this.position.x -= this.screenSize.width;
-            _super.prototype.draw.call(this, ctx);
+            _super.prototype.draw.call(this, ctx, camera);
             this.position.x += this.screenSize.width * 2;
-            _super.prototype.draw.call(this, ctx);
+            _super.prototype.draw.call(this, ctx, camera);
         };
         return Background;
     }(drawable_1.Drawable));
