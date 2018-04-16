@@ -9,9 +9,12 @@ export class Game
     FPS: number = 25;
     MAX_Y: number = 500;
 
+    balls;
+
     // Физика
     PHYS: object = {
-        gravity: 0.4
+        gravity: 0.4,
+        windage: 1 - 0.04
     };
     //---
 
@@ -34,6 +37,8 @@ export class Game
         this.screenSize = new Screen();
         this.keyboard = new KeyboardDriver();
         this.camera = new Camera();
+
+        this.balls = [];
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -71,13 +76,29 @@ export class Game
                 this.background[key].draw(this.ctx, this.camera);
             }
 
-            this.background.sky.position.x += 2;
+            //this.background.sky.position.x += 2;
             // ---
 
-            this.character.isMovedByUser(this.keyboard);
+            this.character.isMovedByUser(this.keyboard, this.balls);
             this.character.update(this.PHYS['gravity'], this.MAX_Y);
 
             this.character.draw(this.ctx, this.camera);
+
+            this.balls.forEach((b,i)=> {
+                b.update(this.PHYS, this.MAX_Y);
+                if(b.timeToLife<=0){
+                    delete this.balls[i];
+                }
+                if(b.checkHit(this.character)){
+                    alert('GameOver');
+                    clearInterval(this.interval);
+                    window.location.reload();
+                }
+            });
+
+            this.balls.forEach((b) => {
+                b.draw(this.ctx, this.camera);
+            });
 
 
             this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;

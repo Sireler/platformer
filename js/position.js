@@ -15,6 +15,9 @@ define(["require", "exports"], function (require, exports) {
             this.x = this.x + x;
             this.y = this.y + y;
         };
+        ObjectPosition.prototype.distance = function (pos) {
+            return Math.sqrt((this.x - pos.x) * (this.x - pos.x) + (this.y - pos.y) * (this.y - pos.y));
+        };
         ObjectPosition.prototype.clone = function () {
             return new ObjectPosition(this.x, this.y);
         };

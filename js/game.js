@@ -7,11 +7,13 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.MAX_Y = 500;
             // Физика
             this.PHYS = {
-                gravity: 0.4
+                gravity: 0.4,
+                windage: 1 - 0.04
             };
             this.screenSize = new screen_1.Screen();
             this.keyboard = new KeyboardDriver_1.KeyboardDriver();
             this.camera = new Camera_1.Camera();
+            this.balls = [];
             this.screen = screen;
             screen.width = this.screenSize.width;
             screen.height = this.screenSize.height;
@@ -35,11 +37,25 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 for (var key in _this.background) {
                     _this.background[key].draw(_this.ctx, _this.camera);
                 }
-                _this.background.sky.position.x += 2;
+                //this.background.sky.position.x += 2;
                 // ---
-                _this.character.isMovedByUser(_this.keyboard);
+                _this.character.isMovedByUser(_this.keyboard, _this.balls);
                 _this.character.update(_this.PHYS['gravity'], _this.MAX_Y);
                 _this.character.draw(_this.ctx, _this.camera);
+                _this.balls.forEach(function (b, i) {
+                    b.update(_this.PHYS, _this.MAX_Y);
+                    if (b.timeToLife <= 0) {
+                        delete _this.balls[i];
+                    }
+                    if (b.checkHit(_this.character)) {
+                        alert('GameOver');
+                        clearInterval(_this.interval);
+                        window.location.reload();
+                    }
+                });
+                _this.balls.forEach(function (b) {
+                    b.draw(_this.ctx, _this.camera);
+                });
                 _this.camera.position.x = _this.character.position.x - _this.screenSize.width / 2 + _this.character.size.width / 2;
                 if (_this.character.position.y < _this.screenSize.height / 2) {
                     _this.camera.position.y = _this.character.position.y - _this.screenSize.height / 2 + _this.character.size.height / 2;

@@ -22,6 +22,11 @@ export class ObjectPosition
         this.y = this.y + y;
     }
 
+    distance(pos): number
+    {
+        return Math.sqrt((this.x - pos.x) * (this.x - pos.x) + (this.y - pos.y) * (this.y - pos.y));
+    }
+
     clone(): ObjectPosition
     {
         return new ObjectPosition(
