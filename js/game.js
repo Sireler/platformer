@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -10,6 +10,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.camera = new Camera_1.Camera();
             this.PHYS = new PhysicParams_1.PhysicParams();
             this.balls = [];
+            this.blocks = [];
             this.screen = screen;
             screen.width = this.screenSize.width;
             screen.height = this.screenSize.height;
@@ -23,6 +24,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             //---
             this.ctx = screen.getContext("2d");
             this.loadBackground();
+            this.loadBlocks();
             this.start();
         }
         Game.prototype.start = function () {
@@ -37,7 +39,6 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 // ---
                 _this.character.isMovedByUser(_this.keyboard, _this.balls);
                 _this.character.update(_this.PHYS['gravity'], _this.MAX_Y);
-                _this.character.draw(_this.ctx, _this.camera);
                 _this.balls.forEach(function (b, i) {
                     b.update(_this.PHYS, _this.MAX_Y);
                     if (b.timeToLife <= 0) {
@@ -49,14 +50,28 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                         window.location.reload();
                     }
                 });
-                _this.balls.forEach(function (b) {
-                    b.draw(_this.ctx, _this.camera);
+                _this.balls.forEach(function (ball) {
+                    ball.draw(_this.ctx, _this.camera);
                 });
+                _this.blocks.forEach(function (block) {
+                    block.draw(_this.ctx, _this.camera);
+                });
+                _this.character.draw(_this.ctx, _this.camera);
                 _this.camera.position.x = _this.character.position.x - _this.screenSize.width / 2 + _this.character.size.width / 2;
                 if (_this.character.position.y < _this.screenSize.height / 2) {
                     _this.camera.position.y = _this.character.position.y - _this.screenSize.height / 2 + _this.character.size.height / 2;
                 }
             }, 1000 / this.FPS);
+        };
+        Game.prototype.createBlock = function (position) {
+            this.blocks.push(new Block_1.Block(position));
+        };
+        Game.prototype.loadBlocks = function () {
+            var _this = this;
+            var blocks = new BlocksData_1.BlocksData();
+            blocks.data.forEach(function (block) {
+                _this.createBlock(new position_1.ObjectPosition(block.x, block.y));
+            });
         };
         //
         Game.prototype.loadBackground = function () {

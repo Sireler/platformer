@@ -5,6 +5,9 @@ import {KeyboardDriver} from "./KeyboardDriver";
 import {Camera} from "./Camera";
 import {PhysicParams} from "./PhysicParams";
 import {Ball} from "./Ball";
+import {Block} from "./Block";
+import {ObjectPosition} from "./position";
+import {BlocksData} from "./BlocksData";
 
 export class Game
 {
@@ -12,6 +15,7 @@ export class Game
     MAX_Y: number = 500;
 
     balls: Ball[];
+    blocks: Block[];
 
     PHYS: PhysicParams;
 
@@ -37,6 +41,7 @@ export class Game
         this.PHYS = new PhysicParams();
 
         this.balls = [];
+        this.blocks = [];
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -55,6 +60,7 @@ export class Game
 
         this.ctx = screen.getContext("2d");
         this.loadBackground();
+        this.loadBlocks();
         this.start();
     }
 
@@ -80,8 +86,6 @@ export class Game
             this.character.isMovedByUser(this.keyboard, this.balls);
             this.character.update(this.PHYS['gravity'], this.MAX_Y);
 
-            this.character.draw(this.ctx, this.camera);
-
             this.balls.forEach((b,i)=> {
                 b.update(this.PHYS, this.MAX_Y);
                 if(b.timeToLife<=0){
@@ -94,10 +98,15 @@ export class Game
                 }
             });
 
-            this.balls.forEach((b) => {
-                b.draw(this.ctx, this.camera);
+            this.balls.forEach((ball) => {
+                ball.draw(this.ctx, this.camera);
             });
 
+            this.blocks.forEach((block) => {
+                block.draw(this.ctx, this.camera);
+            });
+
+            this.character.draw(this.ctx, this.camera);
 
             this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
             if (this.character.position.y < this.screenSize.height / 2) {
@@ -105,6 +114,21 @@ export class Game
             }
 
         }, 1000 / this.FPS);
+    }
+
+    createBlock(position: ObjectPosition)
+    {
+        this.blocks.push(
+            new Block(position)
+        );
+    }
+
+    loadBlocks()
+    {
+        let blocks = new BlocksData();
+        blocks.data.forEach((block) => {
+            this.createBlock(new ObjectPosition(block.x, block.y));
+        });
     }
 
     //
