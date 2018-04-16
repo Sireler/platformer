@@ -87,7 +87,7 @@ export class Game
             this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
 
             this.balls.forEach((b,i)=> {
-                b.update(this.PHYS, this.MAX_Y);
+                b.update(this.PHYS, this.MAX_Y, this.blocks);
                 if(b.timeToLife<=0){
                     delete this.balls[i];
                 }

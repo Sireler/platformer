@@ -55,7 +55,8 @@ export class Ball extends Drawable
 
     // groundY: Game.MAX_Y
     // phys: Game.PHYS
-    update(phys, groundY)
+    // blocks: Game.blocks
+    update(phys, groundY, blocks)
     {
         this.timeToLife--;
         this.position.move(
@@ -78,7 +79,33 @@ export class Ball extends Drawable
             }
         } else {
             if (this.impulse.y > 0) {
-                // TODO:: BLOCKS
+                if(this.impulse.y > 0){
+                    for(var i = 0; i < blocks.length; i++) {
+                        var b = blocks[i];
+
+                        if(!b) {
+                            continue;
+                        }
+                        if(b.position.x > this.feetPosition.x){
+                            continue;
+                        }
+                        if(b.position.x + b.size.width < this.feetPosition.x){
+                            continue;
+                        }
+                        var maxY = this.feetPosition.y;
+                        var minY = maxY - this.impulse.y;
+
+                        if(b.position.y > maxY || b.position.y < minY){
+                            continue;
+                        }
+                        this.position.y = this.impulse.y=this.impulse.y * this.bounce * -1;
+                        if(Math.abs(this.impulse.y)<2){
+                            this.impulse.y=0;
+                        };
+                        this.stands = true;
+                        this.impulse.y = 0;
+                    }
+                }
             }
         }
     }

@@ -40,7 +40,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 _this.character.isMovedByUser(_this.keyboard, _this.balls);
                 _this.character.update(_this.PHYS['gravity'], _this.MAX_Y, _this.blocks);
                 _this.balls.forEach(function (b, i) {
-                    b.update(_this.PHYS, _this.MAX_Y);
+                    b.update(_this.PHYS, _this.MAX_Y, _this.blocks);
                     if (b.timeToLife <= 0) {
                         delete _this.balls[i];
                     }
