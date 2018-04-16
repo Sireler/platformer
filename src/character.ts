@@ -71,7 +71,7 @@ export class Character extends DrawableSet
         }
     }
 
-    update(gravity: number, groundY: number)
+    update(gravity: number, groundY: number, blocks)
     {
         this.attackCooldownDelta++;
         this.position.move(
@@ -88,7 +88,28 @@ export class Character extends DrawableSet
             this.impulse.y = 0;
             this.stands = true;
         } else {
-            //TODO:: BLOCKS
+            for (var i = 0; i < blocks.length; i++) {
+                var b = blocks[i];
+
+                if (!b) {
+                    continue;
+                }
+                if (b.position.x > this.feetPosition.x) {
+                    continue;
+                }
+                if (b.position.x + b.size.width < this.feetPosition.x) {
+                    continue;
+                }
+                var maxY = this.feetPosition.y;
+                var minY = maxY - this.impulse.y;
+
+                if (b.position.y > maxY || b.position.y < minY) {
+                    continue;
+                }
+                this.position.y = b.position.y - this.size.height;
+                this.stands = true;
+                this.impulse.y = 0;
+            }
         }
 
     }

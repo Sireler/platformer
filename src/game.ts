@@ -84,7 +84,7 @@ export class Game
             // ---
 
             this.character.isMovedByUser(this.keyboard, this.balls);
-            this.character.update(this.PHYS['gravity'], this.MAX_Y);
+            this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
 
             this.balls.forEach((b,i)=> {
                 b.update(this.PHYS, this.MAX_Y);
@@ -98,12 +98,12 @@ export class Game
                 }
             });
 
-            this.balls.forEach((ball) => {
-                ball.draw(this.ctx, this.camera);
-            });
-
             this.blocks.forEach((block) => {
                 block.draw(this.ctx, this.camera);
+            });
+
+            this.balls.forEach((ball) => {
+                ball.draw(this.ctx, this.camera);
             });
 
             this.character.draw(this.ctx, this.camera);

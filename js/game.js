@@ -38,7 +38,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 //this.background.sky.position.x += 2;
                 // ---
                 _this.character.isMovedByUser(_this.keyboard, _this.balls);
-                _this.character.update(_this.PHYS['gravity'], _this.MAX_Y);
+                _this.character.update(_this.PHYS['gravity'], _this.MAX_Y, _this.blocks);
                 _this.balls.forEach(function (b, i) {
                     b.update(_this.PHYS, _this.MAX_Y);
                     if (b.timeToLife <= 0) {
@@ -50,11 +50,11 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                         window.location.reload();
                     }
                 });
-                _this.balls.forEach(function (ball) {
-                    ball.draw(_this.ctx, _this.camera);
-                });
                 _this.blocks.forEach(function (block) {
                     block.draw(_this.ctx, _this.camera);
+                });
+                _this.balls.forEach(function (ball) {
+                    ball.draw(_this.ctx, _this.camera);
                 });
                 _this.character.draw(_this.ctx, _this.camera);
                 _this.camera.position.x = _this.character.position.x - _this.screenSize.width / 2 + _this.character.size.width / 2;

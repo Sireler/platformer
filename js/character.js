@@ -58,7 +58,7 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
                 b.impulse.move(-10, -8);
             }
         };
-        Character.prototype.update = function (gravity, groundY) {
+        Character.prototype.update = function (gravity, groundY, blocks) {
             this.attackCooldownDelta++;
             this.position.move(this.impulse.x, this.impulse.y);
             this.impulse.y += gravity;
@@ -69,7 +69,26 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
                 this.stands = true;
             }
             else {
-                //TODO:: BLOCKS
+                for (var i = 0; i < blocks.length; i++) {
+                    var b = blocks[i];
+                    if (!b) {
+                        continue;
+                    }
+                    if (b.position.x > this.feetPosition.x) {
+                        continue;
+                    }
+                    if (b.position.x + b.size.width < this.feetPosition.x) {
+                        continue;
+                    }
+                    var maxY = this.feetPosition.y;
+                    var minY = maxY - this.impulse.y;
+                    if (b.position.y > maxY || b.position.y < minY) {
+                        continue;
+                    }
+                    this.position.y = b.position.y - this.size.height;
+                    this.stands = true;
+                    this.impulse.y = 0;
+                }
             }
         };
         Character.prototype.isMovedByUser = function (keyboard, balls) {

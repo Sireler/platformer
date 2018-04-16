@@ -1,6 +1,6 @@
 export class BlocksData
 {
-    data: object[];
+    data;
 
     constructor()
     {
@@ -10,7 +10,7 @@ export class BlocksData
                 y: 400
             },
             {
-                x: 500,
+                x: 450,
                 y: 350
             }
         ];
