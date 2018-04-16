@@ -3,20 +3,17 @@ import {Screen} from "./screen";
 import {Character} from "./character";
 import {KeyboardDriver} from "./KeyboardDriver";
 import {Camera} from "./Camera";
+import {PhysicParams} from "./PhysicParams";
+import {Ball} from "./Ball";
 
 export class Game
 {
     FPS: number = 25;
     MAX_Y: number = 500;
 
-    balls;
+    balls: Ball[];
 
-    // Физика
-    PHYS: object = {
-        gravity: 0.4,
-        windage: 1 - 0.04
-    };
-    //---
+    PHYS: PhysicParams;
 
     screen: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
@@ -37,6 +34,7 @@ export class Game
         this.screenSize = new Screen();
         this.keyboard = new KeyboardDriver();
         this.camera = new Camera();
+        this.PHYS = new PhysicParams();
 
         this.balls = [];
 

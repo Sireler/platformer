@@ -1,18 +1,14 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
         function Game(screen) {
             this.FPS = 25;
             this.MAX_Y = 500;
-            // Физика
-            this.PHYS = {
-                gravity: 0.4,
-                windage: 1 - 0.04
-            };
             this.screenSize = new screen_1.Screen();
             this.keyboard = new KeyboardDriver_1.KeyboardDriver();
             this.camera = new Camera_1.Camera();
+            this.PHYS = new PhysicParams_1.PhysicParams();
             this.balls = [];
             this.screen = screen;
             screen.width = this.screenSize.width;
