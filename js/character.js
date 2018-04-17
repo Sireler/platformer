@@ -23,6 +23,7 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
             _this.attackCooldown = 30;
             _this.attackCooldownDelta = 0;
             _this.team = "alliers";
+            _this.radius = _this.size.width / 2 - 4;
             _this.ballsprite = 'sprites/waterball.png';
             _this.impulse = new position_1.ObjectPosition(0, 0);
             _this.loadTextures();

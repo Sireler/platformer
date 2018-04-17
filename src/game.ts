@@ -101,8 +101,8 @@ export class Game {
                 }
                 this.enemies.forEach((e, j) => {
                     if (b.checkHit(e)) {
-                        delete this.enemies[i];
-                        delete this.balls[j];
+                        delete this.enemies[j];
+                        delete this.balls[i];
                     }
                 });
             });

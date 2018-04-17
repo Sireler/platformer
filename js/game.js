@@ -53,8 +53,8 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                     }
                     _this.enemies.forEach(function (e, j) {
                         if (b.checkHit(e)) {
-                            delete _this.enemies[i];
-                            delete _this.balls[j];
+                            delete _this.enemies[j];
+                            delete _this.balls[i];
                         }
                     });
                 });

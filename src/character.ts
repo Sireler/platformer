@@ -16,6 +16,7 @@ export class Character extends DrawableSet
     attackCooldownDelta: number;
     ballsprite: string;
     team: string;
+    radius: number;
 
     constructor(srcs: object)
     {
@@ -29,6 +30,7 @@ export class Character extends DrawableSet
         this.attackCooldown = 30;
         this.attackCooldownDelta = 0;
         this.team = "alliers";
+        this.radius = this.size.width / 2 - 4;
         this.ballsprite = 'sprites/waterball.png';
         this.impulse = new ObjectPosition(0, 0);
 
