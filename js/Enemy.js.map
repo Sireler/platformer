@@ -1,1 +1,1 @@
-{"version":3,"file":"Enemy.js","sourceRoot":"","sources":["../src/Enemy.ts"],"names":[],"mappings":";;;;;;;;;;;;;IAEA;QAAoC,yBAAS;QACzC,eAAY,IAAI;YAAhB,YACI,kBAAM,IAAI,CAAC,SAEd;YADG,KAAI,CAAC,UAAU,GAAG,wBAAwB,CAAC;;QAC/C,CAAC;QAEL,YAAC;IAAD,CAAC,AAND,CAAoC,qBAAS,GAM5C;IANqB,sBAAK"}
+{"version":3,"file":"Enemy.js","sourceRoot":"","sources":["../src/Enemy.ts"],"names":[],"mappings":";;;;;;;;;;;;;IAEA;QAAoC,yBAAS;QAEzC,eAAY,IAAI;YAAhB,YAEI,kBAAM,IAAI,CAAC,SAEd;YADG,KAAI,CAAC,UAAU,GAAG,wBAAwB,CAAC;;QAC/C,CAAC;QACL,YAAC;IAAD,CAAC,AAPD,CAAoC,qBAAS,GAO5C;IAPqB,sBAAK"}

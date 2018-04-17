@@ -20,7 +20,8 @@ export class EnemyRanger extends Enemy implements SimpleArtificialIntelligence
         this.balls = balls;
     }
 
-    move(blocks){
+    move(blocks)
+    {
         var y = this.feetPosition.y;
         if(this.direction == "right") {
             var x = this.feetPosition.x + this.speed
