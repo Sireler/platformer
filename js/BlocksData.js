@@ -11,6 +11,14 @@ define(["require", "exports"], function (require, exports) {
                 {
                     x: 450,
                     y: 350
+                },
+                {
+                    x: 550,
+                    y: 300
+                },
+                {
+                    x: 582,
+                    y: 300
                 }
             ];
         }
