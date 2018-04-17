@@ -61,7 +61,6 @@ export class Game {
 
         this.character.position.set(400, 300);
         //---
-
         this.ctx = screen.getContext("2d");
         this.loadBackground();
         this.loadBlocks();
@@ -69,92 +68,119 @@ export class Game {
         this.start();
     }
 
-    start() {
+    start(): void
+    {
         this.interval = window.setInterval(() => {
+            this.clearCanvas();
 
-            this.ctx.clearRect(
-                0,
-                0,
-                this.screenSize.width,
-                this.screenSize.height
-            );
-
-            // Draw background
-            for (var key in this.background) {
-                this.background[key].draw(this.ctx, this.camera);
-            }
-
-            //this.background.sky.position.x += 2;
-            // ---
-
-            this.character.isMovedByUser(this.keyboard, this.balls);
-            this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
-
-            this.balls.forEach((b, i) => {
-                b.update(this.PHYS, this.MAX_Y, this.blocks);
-                if (b.timeToLife <= 0) {
-                    delete this.balls[i];
-                }
-                if (b.checkHit(this.character)) {
-                    this.end();
-                }
-                this.enemies.forEach((e, j) => {
-                    if (b.checkHit(e)) {
-                        delete this.enemies[j];
-                        delete this.balls[i];
-                    }
-                });
-            });
-
-            this.enemies.forEach((enemy, k) => {
-                if (this.character.checkHit(enemy)) {
-                    delete this.enemies[k];
-                    this.end();
-                }
-                enemy.update(this.PHYS.gravity, this.MAX_Y, this.blocks);
-            });
-
-            this.blocks.forEach((block) => {
-                block.draw(this.ctx, this.camera);
-            });
-
-            this.balls.forEach((ball) => {
-                ball.draw(this.ctx, this.camera);
-            });
-
-            this.enemies.forEach((enemy) => {
-                enemy.draw(this.ctx, this.camera);
-            });
-
-            this.character.draw(this.ctx, this.camera);
-
-            this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
-            if (this.character.position.y < this.screenSize.height / 2) {
-                this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
-            }
-
+            this.drawBackground();
+            this.moveCharacter();
+            this.ballsColision();
+            this.enemiesCollision();
+            this.drawObjects();
+            this.moveCamera();
         }, 1000 / this.FPS);
     }
 
-    end()
+    end(): void
     {
         clearInterval(this.interval);
         window.location.reload();
     }
 
-    createBlock(position: ObjectPosition) {
+    moveCamera(): void
+    {
+        this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
+        if (this.character.position.y < this.screenSize.height / 2) {
+            this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
+        }
+    }
+
+    moveCharacter(): void
+    {
+        this.character.isMovedByUser(this.keyboard, this.balls);
+        this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
+    }
+
+    ballsColision(): void
+    {
+        this.balls.forEach((b, i) => {
+            b.update(this.PHYS, this.MAX_Y, this.blocks);
+            if (b.timeToLife <= 0) {
+                delete this.balls[i];
+            }
+            if (b.checkHit(this.character)) {
+                this.end();
+            }
+            this.enemies.forEach((e, j) => {
+                if (b.checkHit(e)) {
+                    delete this.enemies[j];
+                    delete this.balls[i];
+                }
+            });
+        });
+    }
+
+    enemiesCollision(): void
+    {
+        this.enemies.forEach((enemy, k) => {
+            if (this.character.checkHit(enemy)) {
+                delete this.enemies[k];
+                this.end();
+            }
+            enemy.update(this.PHYS.gravity, this.MAX_Y, this.blocks);
+        });
+    }
+
+    clearCanvas(): void
+    {
+        this.ctx.clearRect(
+            0,
+            0,
+            this.screenSize.width,
+            this.screenSize.height
+        );
+    }
+
+    drawObjects(): void
+    {
+        this.blocks.forEach((block) => {
+            block.draw(this.ctx, this.camera);
+        });
+
+        this.balls.forEach((ball) => {
+            ball.draw(this.ctx, this.camera);
+        });
+
+        this.enemies.forEach((enemy) => {
+            enemy.draw(this.ctx, this.camera);
+        });
+
+        this.character.draw(this.ctx, this.camera);
+    }
+
+    drawBackground(): void
+    {
+        for (var key in this.background) {
+            this.background[key].draw(this.ctx, this.camera);
+        }
+    }
+
+    createBlock(position: ObjectPosition): void
+    {
         this.blocks.push(
             new Block(position)
         );
     }
 
-    createEnemyRanger(position: ObjectPosition) {
+    createEnemyRanger(position: ObjectPosition): void
+    {
         this.enemies.push(
             new EnemyRanger(position, this.blocks, this.balls)
         );
     }
 
-    loadEnemies()
+    loadEnemies(): void
     {
         let enemies = new EnemiesData();
         enemies.data.forEach((enemy) => {
@@ -162,7 +188,7 @@ export class Game {
         });
     }
 
-    loadBlocks()
+    loadBlocks(): void
     {
         let blocks = new BlocksData();
         blocks.data.forEach((block) => {
@@ -171,7 +197,7 @@ export class Game {
     }
 
     //
-    loadBackground()
+    loadBackground(): void
     {
         this.background.sky = new Background('sprites/bg_sky.png');
         this.background.sky.cameraC = 0;
@@ -182,4 +208,3 @@ export class Game {
         this.background.ground = new Background('sprites/bg_ground.png');
     }
 }
-

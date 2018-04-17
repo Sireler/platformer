@@ -32,56 +32,77 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
         Game.prototype.start = function () {
             var _this = this;
             this.interval = window.setInterval(function () {
-                _this.ctx.clearRect(0, 0, _this.screenSize.width, _this.screenSize.height);
-                // Draw background
-                for (var key in _this.background) {
-                    _this.background[key].draw(_this.ctx, _this.camera);
-                }
-                //this.background.sky.position.x += 2;
-                // ---
-                _this.character.isMovedByUser(_this.keyboard, _this.balls);
-                _this.character.update(_this.PHYS['gravity'], _this.MAX_Y, _this.blocks);
-                _this.balls.forEach(function (b, i) {
-                    b.update(_this.PHYS, _this.MAX_Y, _this.blocks);
-                    if (b.timeToLife <= 0) {
-                        delete _this.balls[i];
-                    }
-                    if (b.checkHit(_this.character)) {
-                        _this.end();
-                    }
-                    _this.enemies.forEach(function (e, j) {
-                        if (b.checkHit(e)) {
-                            delete _this.enemies[j];
-                            delete _this.balls[i];
-                        }
-                    });
-                });
-                _this.enemies.forEach(function (enemy, k) {
-                    if (_this.character.checkHit(enemy)) {
-                        delete _this.enemies[k];
-                        _this.end();
-                    }
-                    enemy.update(_this.PHYS.gravity, _this.MAX_Y, _this.blocks);
-                });
-                _this.blocks.forEach(function (block) {
-                    block.draw(_this.ctx, _this.camera);
-                });
-                _this.balls.forEach(function (ball) {
-                    ball.draw(_this.ctx, _this.camera);
-                });
-                _this.enemies.forEach(function (enemy) {
-                    enemy.draw(_this.ctx, _this.camera);
-                });
-                _this.character.draw(_this.ctx, _this.camera);
-                _this.camera.position.x = _this.character.position.x - _this.screenSize.width / 2 + _this.character.size.width / 2;
-                if (_this.character.position.y < _this.screenSize.height / 2) {
-                    _this.camera.position.y = _this.character.position.y - _this.screenSize.height / 2 + _this.character.size.height / 2;
-                }
+                _this.clearCanvas();
+                _this.drawBackground();
+                _this.moveCharacter();
+                _this.ballsColision();
+                _this.enemiesCollision();
+                _this.drawObjects();
+                _this.moveCamera();
             }, 1000 / this.FPS);
         };
         Game.prototype.end = function () {
             clearInterval(this.interval);
             window.location.reload();
+        };
+        Game.prototype.moveCamera = function () {
+            this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
+            if (this.character.position.y < this.screenSize.height / 2) {
+                this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
+            }
+        };
+        Game.prototype.moveCharacter = function () {
+            this.character.isMovedByUser(this.keyboard, this.balls);
+            this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
+        };
+        Game.prototype.ballsColision = function () {
+            var _this = this;
+            this.balls.forEach(function (b, i) {
+                b.update(_this.PHYS, _this.MAX_Y, _this.blocks);
+                if (b.timeToLife <= 0) {
+                    delete _this.balls[i];
+                }
+                if (b.checkHit(_this.character)) {
+                    _this.end();
+                }
+                _this.enemies.forEach(function (e, j) {
+                    if (b.checkHit(e)) {
+                        delete _this.enemies[j];
+                        delete _this.balls[i];
+                    }
+                });
+            });
+        };
+        Game.prototype.enemiesCollision = function () {
+            var _this = this;
+            this.enemies.forEach(function (enemy, k) {
+                if (_this.character.checkHit(enemy)) {
+                    delete _this.enemies[k];
+                    _this.end();
+                }
+                enemy.update(_this.PHYS.gravity, _this.MAX_Y, _this.blocks);
+            });
+        };
+        Game.prototype.clearCanvas = function () {
+            this.ctx.clearRect(0, 0, this.screenSize.width, this.screenSize.height);
+        };
+        Game.prototype.drawObjects = function () {
+            var _this = this;
+            this.blocks.forEach(function (block) {
+                block.draw(_this.ctx, _this.camera);
+            });
+            this.balls.forEach(function (ball) {
+                ball.draw(_this.ctx, _this.camera);
+            });
+            this.enemies.forEach(function (enemy) {
+                enemy.draw(_this.ctx, _this.camera);
+            });
+            this.character.draw(this.ctx, this.camera);
+        };
+        Game.prototype.drawBackground = function () {
+            for (var key in this.background) {
+                this.background[key].draw(this.ctx, this.camera);
+            }
         };
         Game.prototype.createBlock = function (position) {
             this.blocks.push(new Block_1.Block(position));
