@@ -53,6 +53,21 @@ export class Character extends DrawableSet
         )
     }
 
+    checkHit(ch)
+    {
+        if (this.team == ch.team) {
+            return false;
+        }
+
+        var distance = this.center.distance(ch.center);
+
+        if ((this.radius + ch.radius) > distance) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     draw(ctx, camera)
     {
         super.draw(ctx, this.direction, camera);

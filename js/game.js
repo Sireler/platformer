@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -47,9 +47,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                         delete _this.balls[i];
                     }
                     if (b.checkHit(_this.character)) {
-                        alert('GameOver');
-                        clearInterval(_this.interval);
-                        window.location.reload();
+                        _this.end();
                     }
                     _this.enemies.forEach(function (e, j) {
                         if (b.checkHit(e)) {
@@ -58,7 +56,11 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                         }
                     });
                 });
-                _this.enemies.forEach(function (enemy) {
+                _this.enemies.forEach(function (enemy, k) {
+                    if (_this.character.checkHit(enemy)) {
+                        delete _this.enemies[k];
+                        _this.end();
+                    }
                     enemy.update(_this.PHYS.gravity, _this.MAX_Y, _this.blocks);
                 });
                 _this.blocks.forEach(function (block) {
@@ -77,6 +79,10 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 }
             }, 1000 / this.FPS);
         };
+        Game.prototype.end = function () {
+            clearInterval(this.interval);
+            window.location.reload();
+        };
         Game.prototype.createBlock = function (position) {
             this.blocks.push(new Block_1.Block(position));
         };
@@ -84,7 +90,11 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.enemies.push(new EnemyRanger_1.EnemyRanger(position, this.blocks, this.balls));
         };
         Game.prototype.loadEnemies = function () {
-            this.createEnemyRanger(new position_1.ObjectPosition(300, 200));
+            var _this = this;
+            var enemies = new EnemiesData_1.EnemiesData();
+            enemies.data.forEach(function (enemy) {
+                _this.createEnemyRanger(new position_1.ObjectPosition(enemy.x, enemy.y));
+            });
         };
         Game.prototype.loadBlocks = function () {
             var _this = this;

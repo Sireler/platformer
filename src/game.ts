@@ -10,6 +10,7 @@ import {ObjectPosition} from "./position";
 import {BlocksData} from "./BlocksData";
 import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
+import {EnemiesData} from "./EnemiesData";
 
 export class Game {
     FPS: number = 25;
@@ -95,9 +96,7 @@ export class Game {
                     delete this.balls[i];
                 }
                 if (b.checkHit(this.character)) {
-                    alert('GameOver');
-                    clearInterval(this.interval);
-                    window.location.reload();
+                    this.end();
                 }
                 this.enemies.forEach((e, j) => {
                     if (b.checkHit(e)) {
@@ -107,7 +106,11 @@ export class Game {
                 });
             });
 
-            this.enemies.forEach((enemy) => {
+            this.enemies.forEach((enemy, k) => {
+                if (this.character.checkHit(enemy)) {
+                    delete this.enemies[k];
+                    this.end();
+                }
                 enemy.update(this.PHYS.gravity, this.MAX_Y, this.blocks);
             });
 
@@ -133,6 +136,12 @@ export class Game {
         }, 1000 / this.FPS);
     }
 
+    end()
+    {
+        clearInterval(this.interval);
+        window.location.reload();
+    }
+
     createBlock(position: ObjectPosition) {
         this.blocks.push(
             new Block(position)
@@ -147,7 +156,10 @@ export class Game {
 
     loadEnemies()
     {
-        this.createEnemyRanger(new ObjectPosition(300, 200));
+        let enemies = new EnemiesData();
+        enemies.data.forEach((enemy) => {
+            this.createEnemyRanger(new ObjectPosition(enemy.x, enemy.y));
+        });
     }
 
     loadBlocks()

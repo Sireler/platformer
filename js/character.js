@@ -43,6 +43,18 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
             enumerable: true,
             configurable: true
         });
+        Character.prototype.checkHit = function (ch) {
+            if (this.team == ch.team) {
+                return false;
+            }
+            var distance = this.center.distance(ch.center);
+            if ((this.radius + ch.radius) > distance) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
         Character.prototype.draw = function (ctx, camera) {
             _super.prototype.draw.call(this, ctx, this.direction, camera);
         };
