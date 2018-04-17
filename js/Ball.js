@@ -92,7 +92,6 @@ define(["require", "exports", "./drawable", "./size", "./position"], function (r
                                 this.impulse.y = 0;
                             }
                             ;
-                            this.stands = true;
                             this.impulse.y = 0;
                         }
                     }

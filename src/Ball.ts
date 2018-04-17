@@ -98,11 +98,10 @@ export class Ball extends Drawable
                         if(b.position.y > maxY || b.position.y < minY){
                             continue;
                         }
-                        this.position.y = this.impulse.y=this.impulse.y * this.bounce * -1;
-                        if(Math.abs(this.impulse.y)<2){
-                            this.impulse.y=0;
+                        this.position.y = this.impulse.y = this.impulse.y * this.bounce * -1;
+                        if(Math.abs(this.impulse.y) < 2){
+                            this.impulse.y = 0;
                         };
-                        this.stands = true;
                         this.impulse.y = 0;
                     }
                 }
