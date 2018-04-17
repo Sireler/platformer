@@ -43,6 +43,14 @@ export class Character extends DrawableSet
         );
     }
 
+    get center()
+    {
+        return new ObjectPosition(
+            this.position.x+this.size.width / 2,
+            this.position.y+this.size.height / 2
+        )
+    }
+
     draw(ctx, camera)
     {
         super.draw(ctx, this.direction, camera);

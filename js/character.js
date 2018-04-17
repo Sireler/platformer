@@ -35,6 +35,13 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Character.prototype, "center", {
+            get: function () {
+                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
+            },
+            enumerable: true,
+            configurable: true
+        });
         Character.prototype.draw = function (ctx, camera) {
             _super.prototype.draw.call(this, ctx, this.direction, camera);
         };

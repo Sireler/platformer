@@ -8,20 +8,23 @@ import {Ball} from "./Ball";
 import {Block} from "./Block";
 import {ObjectPosition} from "./position";
 import {BlocksData} from "./BlocksData";
+import {EnemyRanger} from "./EnemyRanger";
+import {Enemy} from "./Enemy";
 
-export class Game
-{
+export class Game {
     FPS: number = 25;
     MAX_Y: number = 500;
 
     balls: Ball[];
     blocks: Block[];
+    enemies: Enemy[];
 
     PHYS: PhysicParams;
 
     screen: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     screenSize: Screen;
+
 
     character: Character;
 
@@ -33,8 +36,7 @@ export class Game
 
     background;
 
-    constructor(screen)
-    {
+    constructor(screen) {
         this.screenSize = new Screen();
         this.keyboard = new KeyboardDriver();
         this.camera = new Camera();
@@ -42,6 +44,7 @@ export class Game
 
         this.balls = [];
         this.blocks = [];
+        this.enemies = [];
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -61,11 +64,11 @@ export class Game
         this.ctx = screen.getContext("2d");
         this.loadBackground();
         this.loadBlocks();
+        this.loadEnemies();
         this.start();
     }
 
-    start()
-    {
+    start() {
         this.interval = window.setInterval(() => {
 
             this.ctx.clearRect(
@@ -86,16 +89,26 @@ export class Game
             this.character.isMovedByUser(this.keyboard, this.balls);
             this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
 
-            this.balls.forEach((b,i)=> {
+            this.balls.forEach((b, i) => {
                 b.update(this.PHYS, this.MAX_Y, this.blocks);
-                if(b.timeToLife<=0){
+                if (b.timeToLife <= 0) {
                     delete this.balls[i];
                 }
-                if(b.checkHit(this.character)){
+                if (b.checkHit(this.character)) {
                     alert('GameOver');
                     clearInterval(this.interval);
                     window.location.reload();
                 }
+                this.enemies.forEach((e, j) => {
+                    if (b.checkHit(e)) {
+                        delete this.enemies[i];
+                        delete this.balls[j];
+                    }
+                });
+            });
+
+            this.enemies.forEach((enemy) => {
+                enemy.update(this.PHYS.gravity, this.MAX_Y, this.blocks);
             });
 
             this.blocks.forEach((block) => {
@@ -104,6 +117,10 @@ export class Game
 
             this.balls.forEach((ball) => {
                 ball.draw(this.ctx, this.camera);
+            });
+
+            this.enemies.forEach((enemy) => {
+                enemy.draw(this.ctx, this.camera);
             });
 
             this.character.draw(this.ctx, this.camera);
@@ -116,11 +133,21 @@ export class Game
         }, 1000 / this.FPS);
     }
 
-    createBlock(position: ObjectPosition)
-    {
+    createBlock(position: ObjectPosition) {
         this.blocks.push(
             new Block(position)
         );
+    }
+
+    createEnemyRanger(position: ObjectPosition) {
+        this.enemies.push(
+            new EnemyRanger(position, this.blocks, this.balls)
+        );
+    }
+
+    loadEnemies()
+    {
+        this.createEnemyRanger(new ObjectPosition(300, 200));
     }
 
     loadBlocks()
