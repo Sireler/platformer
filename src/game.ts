@@ -12,6 +12,7 @@ import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
 import {EnemiesData} from "./EnemiesData";
 import {Trigger} from "./Trigger";
+import {Teleport} from "./Teleport";
 
 export class Game {
     FPS: number = 25;
@@ -68,6 +69,7 @@ export class Game {
         this.loadBackground();
         this.loadBlocks();
         this.loadEnemies();
+        this.loadTriggers();
         this.start();
     }
 
@@ -80,6 +82,7 @@ export class Game {
             this.moveCharacter();
             this.ballsColision();
             this.enemiesCollision();
+            this.triggersCollision();
             this.drawObjects();
             this.moveCamera();
         }, 1000 / this.FPS);
@@ -124,6 +127,19 @@ export class Game {
         });
     }
 
+    triggersCollision(): void
+    {
+        this.triggers.forEach((t) => {
+            t.checkHit(this.character);
+            this.enemies.forEach((e) => {
+                t.checkHit(e);
+            });
+            this.balls.forEach((b) => {
+                t.checkHit(b);
+            });
+        });
+    }
+
     enemiesCollision(): void
     {
         this.enemies.forEach((enemy, k) => {
@@ -159,6 +175,10 @@ export class Game {
             enemy.draw(this.ctx, this.camera);
         });
 
+        this.triggers.forEach((trigger) => {
+            trigger.draw(this.ctx, this.camera);
+        });
+
         this.character.draw(this.ctx, this.camera);
     }
 
@@ -183,6 +203,19 @@ export class Game {
         );
     }
 
+    createTrigger(position: ObjectPosition, moveTo: ObjectPosition): void
+    {
+        this.triggers.push(
+            new Teleport(position, moveTo)
+        );
+    }
+
+    loadTriggers(): void
+    {
+        this.createTrigger(new ObjectPosition(200,200), new ObjectPosition(400, 400));
+    }
+
+
     loadEnemies(): void
     {
         let enemies = new EnemiesData();
@@ -197,11 +230,6 @@ export class Game {
         blocks.data.forEach((block) => {
             this.createBlock(new ObjectPosition(block.x, block.y));
         });
-    }
-
-    createTrigger(): void
-    {
-        let trigger = new Trigger()
     }
 
     //

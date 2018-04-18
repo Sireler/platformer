@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData", "./Trigger"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Trigger_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData", "./Teleport"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Teleport_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -28,6 +28,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.loadBackground();
             this.loadBlocks();
             this.loadEnemies();
+            this.loadTriggers();
             this.start();
         }
         Game.prototype.start = function () {
@@ -38,6 +39,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 _this.moveCharacter();
                 _this.ballsColision();
                 _this.enemiesCollision();
+                _this.triggersCollision();
                 _this.drawObjects();
                 _this.moveCamera();
             }, 1000 / this.FPS);
@@ -74,6 +76,18 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 });
             });
         };
+        Game.prototype.triggersCollision = function () {
+            var _this = this;
+            this.triggers.forEach(function (t) {
+                t.checkHit(_this.character);
+                _this.enemies.forEach(function (e) {
+                    t.checkHit(e);
+                });
+                _this.balls.forEach(function (b) {
+                    t.checkHit(b);
+                });
+            });
+        };
         Game.prototype.enemiesCollision = function () {
             var _this = this;
             this.enemies.forEach(function (enemy, k) {
@@ -98,6 +112,9 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.enemies.forEach(function (enemy) {
                 enemy.draw(_this.ctx, _this.camera);
             });
+            this.triggers.forEach(function (trigger) {
+                trigger.draw(_this.ctx, _this.camera);
+            });
             this.character.draw(this.ctx, this.camera);
         };
         Game.prototype.drawBackground = function () {
@@ -110,6 +127,12 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
         };
         Game.prototype.createEnemyRanger = function (position) {
             this.enemies.push(new EnemyRanger_1.EnemyRanger(position, this.blocks, this.balls));
+        };
+        Game.prototype.createTrigger = function (position, moveTo) {
+            this.triggers.push(new Teleport_1.Teleport(position, moveTo));
+        };
+        Game.prototype.loadTriggers = function () {
+            this.createTrigger(new position_1.ObjectPosition(200, 200), new position_1.ObjectPosition(400, 400));
         };
         Game.prototype.loadEnemies = function () {
             var _this = this;
@@ -124,9 +147,6 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             blocks.data.forEach(function (block) {
                 _this.createBlock(new position_1.ObjectPosition(block.x, block.y));
             });
-        };
-        Game.prototype.createTrigger = function () {
-            var trigger = new Trigger_1.Trigger();
         };
         //
         Game.prototype.loadBackground = function () {
