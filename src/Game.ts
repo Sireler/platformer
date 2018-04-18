@@ -47,6 +47,8 @@ export class Game {
     interval: number;
     background;
 
+    enemyCount = 0;
+
     constructor(screen) {
         this.screenSize = new Screen();
         this.keyboard = new KeyboardDriver();
@@ -93,6 +95,7 @@ export class Game {
             this.triggersCollision();
             this.drawObjects();
             this.moveCamera();
+            this.checkForWin();
         }, 1000 / this.FPS);
     }
 
@@ -101,6 +104,35 @@ export class Game {
     {
         clearInterval(this.interval);
         window.location.reload();
+    }
+
+    checkForWin()
+    {
+        if (this.enemyCount == 0) {
+            this.win();
+        }
+    }
+
+    // If this.enemyCount == 0
+    win()
+    {
+        this.ctx.fillRect(
+            0,
+            0,
+            this.screenSize.width,
+            this.screenSize.height
+        );
+
+        this.ctx.textBaseline = "middle";
+        this.ctx.strokeStyle = "#F00";
+        this.ctx.font = "italic 52pt Arial";
+        this.ctx.textAlign = "center";
+        this.ctx.strokeText('You won!', 300, 200);
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+
     }
 
     // Camera to track character
@@ -133,6 +165,7 @@ export class Game {
                 if (b.checkHit(e)) {
                     delete this.enemies[j];
                     delete this.balls[i];
+                    this.enemyCount--;
                 }
             });
         });
@@ -217,7 +250,7 @@ export class Game {
 
     createTrigger(type: string, position: ObjectPosition, arg: ObjectPosition): void
     {
-        var obj;
+        let obj;
 
         switch (type) {
             case 'Teleport':
@@ -261,6 +294,7 @@ export class Game {
         let enemies = new EnemiesData();
         enemies.data.forEach((enemy) => {
             this.createEnemyRanger(new ObjectPosition(enemy.x, enemy.y));
+            this.enemyCount++;
         });
     }
 

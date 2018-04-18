@@ -6,6 +6,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
             this.FPS = 30;
             // Ground position
             this.MAX_Y = 500;
+            this.enemyCount = 0;
             this.screenSize = new Screen_1.Screen();
             this.keyboard = new KeyboardDriver_1.KeyboardDriver();
             this.camera = new Camera_1.Camera();
@@ -44,12 +45,30 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                 _this.triggersCollision();
                 _this.drawObjects();
                 _this.moveCamera();
+                _this.checkForWin();
             }, 1000 / this.FPS);
         };
         // End game
         Game.prototype.end = function () {
             clearInterval(this.interval);
             window.location.reload();
+        };
+        Game.prototype.checkForWin = function () {
+            if (this.enemyCount == 0) {
+                this.win();
+            }
+        };
+        // If this.enemyCount == 0
+        Game.prototype.win = function () {
+            this.ctx.fillRect(0, 0, this.screenSize.width, this.screenSize.height);
+            this.ctx.textBaseline = "middle";
+            this.ctx.strokeStyle = "#F00";
+            this.ctx.font = "italic 52pt Arial";
+            this.ctx.textAlign = "center";
+            this.ctx.strokeText('You won!', 300, 200);
+            setTimeout(function () {
+                window.location.reload();
+            }, 3000);
         };
         // Camera to track character
         Game.prototype.moveCamera = function () {
@@ -77,6 +96,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                     if (b.checkHit(e)) {
                         delete _this.enemies[j];
                         delete _this.balls[i];
+                        _this.enemyCount--;
                     }
                 });
             });
@@ -164,6 +184,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
             var enemies = new EnemiesData_1.EnemiesData();
             enemies.data.forEach(function (enemy) {
                 _this.createEnemyRanger(new Position_1.ObjectPosition(enemy.x, enemy.y));
+                _this.enemyCount++;
             });
         };
         // Load blocks into Game.blocks
