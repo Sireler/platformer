@@ -4,6 +4,7 @@ import {ObjectPosition} from "./position";
 import {KeyboardDriver} from "./KeyboardDriver";
 import {Ball} from "./Ball";
 import {Camera} from "./Camera";
+import {PhysicParams} from "./PhysicParams";
 
 export class Character extends DrawableSet
 {
@@ -96,15 +97,31 @@ export class Character extends DrawableSet
         }
     }
 
-    update(gravity: number, groundY: number, blocks)
+    update(phys: PhysicParams, groundY: number, blocks)
     {
+
+        this.impulse.y += phys.gravity;
+        this.impulse.x *= phys.windage;
+
+        if (Math.abs(this.impulse.x) < 0.1) {
+            this.impulse.x = 0;
+        }
+
+        this.stands=false;
+
+        if(this.feetPosition.y > groundY) {
+            this.position.y = groundY - this.size.height;
+            if (Math.abs(this.impulse.y) < 2) {
+                this.impulse.y = 0;
+            }
+            this.stands = true;
+        }
+
         this.attackCooldownDelta++;
         this.position.move(
             this.impulse.x,
             this.impulse.y
         );
-
-        this.impulse.y += gravity;
 
         this.stands = false;
 

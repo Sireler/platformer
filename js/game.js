@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./PositionsData/BlocksData", "./EnemyRanger", "./PositionsData/EnemiesData", "./Teleport", "./PositionsData/TeleportsData"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Teleport_1, TeleportsData_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./PositionsData/BlocksData", "./EnemyRanger", "./PositionsData/EnemiesData", "./Triggers/Teleport", "./PositionsData/TeleportsData", "./PositionsData/JumpersData", "./Triggers/Jumper"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Teleport_1, TeleportsData_1, JumpersData_1, Jumper_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -56,7 +56,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
         };
         Game.prototype.moveCharacter = function () {
             this.character.isMovedByUser(this.keyboard, this.balls);
-            this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
+            this.character.update(this.PHYS, this.MAX_Y, this.blocks);
         };
         Game.prototype.ballsColision = function () {
             var _this = this;
@@ -95,7 +95,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                     delete _this.enemies[k];
                     _this.end();
                 }
-                enemy.update(_this.PHYS.gravity, _this.MAX_Y, _this.blocks);
+                enemy.update(_this.PHYS, _this.MAX_Y, _this.blocks);
             });
         };
         Game.prototype.clearCanvas = function () {
@@ -128,14 +128,27 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
         Game.prototype.createEnemyRanger = function (position) {
             this.enemies.push(new EnemyRanger_1.EnemyRanger(position, this.blocks, this.balls));
         };
-        Game.prototype.createTrigger = function (position, moveTo) {
-            this.triggers.push(new Teleport_1.Teleport(position, moveTo));
+        Game.prototype.createTrigger = function (type, position, arg) {
+            var obj;
+            switch (type) {
+                case 'Teleport':
+                    obj = new Teleport_1.Teleport(position, arg);
+                    break;
+                case 'Jumper':
+                    obj = new Jumper_1.Jumper(position, arg);
+                    break;
+            }
+            this.triggers.push(obj);
         };
         Game.prototype.loadTriggers = function () {
             var _this = this;
-            var triggers = new TeleportsData_1.TeleportsData();
-            triggers.data.forEach(function (trigger) {
-                _this.createTrigger(new position_1.ObjectPosition(trigger.x, trigger.y), new position_1.ObjectPosition(trigger.toX, trigger.toY));
+            var teleports = new TeleportsData_1.TeleportsData();
+            teleports.data.forEach(function (teleport) {
+                _this.createTrigger('Teleport', new position_1.ObjectPosition(teleport.x, teleport.y), new position_1.ObjectPosition(teleport.toX, teleport.toY));
+            });
+            var jumpers = new JumpersData_1.JumpersData();
+            jumpers.data.forEach(function (jumper) {
+                _this.createTrigger('Jumper', new position_1.ObjectPosition(jumper.x, jumper.y), new position_1.ObjectPosition(jumper.impulseX, jumper.impulseY));
             });
         };
         Game.prototype.loadEnemies = function () {

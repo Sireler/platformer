@@ -11,9 +11,11 @@ import {BlocksData} from "./PositionsData/BlocksData";
 import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
 import {EnemiesData} from "./PositionsData/EnemiesData";
-import {Trigger} from "./Trigger";
-import {Teleport} from "./Teleport";
+import {Trigger} from "./Triggers/Trigger";
+import {Teleport} from "./Triggers/Teleport";
 import {TeleportsData} from "./PositionsData/TeleportsData";
+import {JumpersData} from "./PositionsData/JumpersData";
+import {Jumper} from "./Triggers/Jumper";
 
 export class Game {
     FPS: number = 25;
@@ -106,7 +108,7 @@ export class Game {
     moveCharacter(): void
     {
         this.character.isMovedByUser(this.keyboard, this.balls);
-        this.character.update(this.PHYS['gravity'], this.MAX_Y, this.blocks);
+        this.character.update(this.PHYS, this.MAX_Y, this.blocks);
     }
 
     ballsColision(): void
@@ -148,7 +150,7 @@ export class Game {
                 delete this.enemies[k];
                 this.end();
             }
-            enemy.update(this.PHYS.gravity, this.MAX_Y, this.blocks);
+            enemy.update(this.PHYS, this.MAX_Y, this.blocks);
         });
     }
 
@@ -204,20 +206,41 @@ export class Game {
         );
     }
 
-    createTrigger(position: ObjectPosition, moveTo: ObjectPosition): void
+    createTrigger(type: string, position: ObjectPosition, arg: ObjectPosition): void
     {
+        var obj;
+
+        switch (type) {
+            case 'Teleport':
+                obj = new Teleport(position, arg);
+                break;
+            case 'Jumper':
+                obj = new Jumper(position, arg);
+                break;
+        }
+
         this.triggers.push(
-            new Teleport(position, moveTo)
+            obj
         );
     }
 
     loadTriggers(): void
     {
-        let triggers = new TeleportsData();
-        triggers.data.forEach((trigger) => {
+        let teleports = new TeleportsData();
+        teleports.data.forEach((teleport) => {
             this.createTrigger(
-                new ObjectPosition(trigger.x, trigger.y),
-                new ObjectPosition(trigger.toX, trigger.toY)
+                'Teleport',
+                new ObjectPosition(teleport.x, teleport.y),
+                new ObjectPosition(teleport.toX, teleport.toY)
+            );
+        });
+
+        let jumpers = new JumpersData();
+        jumpers.data.forEach((jumper) => {
+            this.createTrigger(
+                'Jumper',
+                new ObjectPosition(jumper.x, jumper.y),
+                new ObjectPosition(jumper.impulseX, jumper.impulseY)
             );
         });
     }

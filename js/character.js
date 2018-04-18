@@ -78,10 +78,22 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
                 b.impulse.move(-10, -8);
             }
         };
-        Character.prototype.update = function (gravity, groundY, blocks) {
+        Character.prototype.update = function (phys, groundY, blocks) {
+            this.impulse.y += phys.gravity;
+            this.impulse.x *= phys.windage;
+            if (Math.abs(this.impulse.x) < 0.1) {
+                this.impulse.x = 0;
+            }
+            this.stands = false;
+            if (this.feetPosition.y > groundY) {
+                this.position.y = groundY - this.size.height;
+                if (Math.abs(this.impulse.y) < 2) {
+                    this.impulse.y = 0;
+                }
+                this.stands = true;
+            }
             this.attackCooldownDelta++;
             this.position.move(this.impulse.x, this.impulse.y);
-            this.impulse.y += gravity;
             this.stands = false;
             if (this.feetPosition.y > groundY) {
                 this.position.y = groundY - this.size.height;
