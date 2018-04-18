@@ -3,6 +3,8 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var JumpersData = /** @class */ (function () {
         function JumpersData() {
+            // (x,y) - position to draw
+            // (impulseX, impulseY) - impulse to drop
             this.data = [
                 {
                     x: 600,

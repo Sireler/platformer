@@ -17,6 +17,6 @@ export class Size
 
     isset()
     {
-        return this.width != 0 ? true : false;
+        return this.width != 0;
     }
 }

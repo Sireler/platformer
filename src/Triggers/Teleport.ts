@@ -16,6 +16,7 @@ export class Teleport extends Trigger
         this.drawable.size = this.size;
     }
 
+    // Action in contact with trigger
     onTrigger(obj)
     {
         obj.position.set(this.moveTo.x, this.moveTo.y);

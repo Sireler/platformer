@@ -19,6 +19,7 @@ define(["require", "exports", "./Draw/Drawable", "./Size", "./Screen"], function
             _this.size = new Size_1.Size(_this.screenSize.width, _this.screenSize.height);
             return _this;
         }
+        // Drawing object into a canvas
         Background.prototype.draw = function (ctx, camera) {
             this.position.normalize(this.screenSize);
             var offsetX = camera.position.x * this.cameraC;
@@ -34,4 +35,4 @@ define(["require", "exports", "./Draw/Drawable", "./Size", "./Screen"], function
     }(Drawable_1.Drawable));
     exports.Background = Background;
 });
-//# sourceMappingURL=background.js.map
+//# sourceMappingURL=Background.js.map

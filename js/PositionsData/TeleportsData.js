@@ -3,6 +3,8 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var TeleportsData = /** @class */ (function () {
         function TeleportsData() {
+            // (x,y) - position to draw (place of teleport)
+            // (toX, toY) - where will be teleported
             this.data = [
                 {
                     x: 200,

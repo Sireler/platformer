@@ -4,6 +4,8 @@ export class JumpersData
 
     constructor()
     {
+        // (x,y) - position to draw
+        // (impulseX, impulseY) - impulse to drop
         this.data = [
             {
                 x: 600,

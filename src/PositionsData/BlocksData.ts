@@ -4,6 +4,7 @@ export class BlocksData
 
     constructor()
     {
+        // (x,y) - position to draw
         this.data = [
             {
                 x: 300,

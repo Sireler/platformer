@@ -17,6 +17,7 @@ export class Drawable
         this.cameraC = 1;
     }
 
+    // Drawing object into a canvas
     draw(ctx: CanvasRenderingContext2D, camera): void
     {
         if (!this.size) {

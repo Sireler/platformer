@@ -8,13 +8,14 @@ define(["require", "exports", "../Position"], function (require, exports, Positi
             this.size = null;
             this.textures = {};
         }
-        // Создание и загрузка изображений
+        // Creating and loading images
         DrawableSet.prototype.loadTextures = function () {
             for (var name in this.srcs) {
                 this.textures[name] = new Image();
                 this.textures[name].src = this.srcs[name];
             }
         };
+        // Drawing object into a canvas
         DrawableSet.prototype.draw = function (ctx, name, camera) {
             if (!this.size) {
                 ctx.drawImage(this.textures[name], this.position.x - camera.position.x, this.position.y - camera.position.y);

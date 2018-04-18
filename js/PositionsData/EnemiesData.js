@@ -15,6 +15,7 @@ define(["require", "exports", "./BlocksData"], function (require, exports, Block
         __extends(EnemiesData, _super);
         function EnemiesData() {
             var _this = _super.call(this) || this;
+            // exclusion of enemy creation on the block
             _this.except = [
                 {
                     x: 1210,
@@ -32,7 +33,7 @@ define(["require", "exports", "./BlocksData"], function (require, exports, Block
             _this.calculate();
             return _this;
         }
-        // calculate Y position and check except
+        // calculate Y position and check except (to draw enemies)
         EnemiesData.prototype.calculate = function () {
             var _this = this;
             this.data.forEach(function (obj, i) {

@@ -8,6 +8,8 @@ export class EnemiesData extends BlocksData
     constructor()
     {
         super();
+
+        // exclusion of enemy creation on the block
         this.except = [
             {
                 x: 1210,
@@ -25,7 +27,7 @@ export class EnemiesData extends BlocksData
         this.calculate();
     }
 
-    // calculate Y position and check except
+    // calculate Y position and check except (to draw enemies)
     calculate()
     {
         this.data.forEach((obj, i) => {

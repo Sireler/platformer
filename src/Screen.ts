@@ -1,3 +1,6 @@
+/**
+ * To store current size of the canvas
+ */
 export class Screen
 {
     width: number;

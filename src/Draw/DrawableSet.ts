@@ -16,7 +16,7 @@ export class DrawableSet
         this.textures = {};
     }
 
-    // Создание и загрузка изображений
+    // Creating and loading images
     loadTextures()
     {
         for (var name in this.srcs) {
@@ -25,6 +25,7 @@ export class DrawableSet
         }
     }
 
+    // Drawing object into a canvas
     draw(ctx: CanvasRenderingContext2D, name: string, camera): void
     {
         if (!this.size) {

@@ -17,6 +17,7 @@ export class Background extends Drawable
         );
     }
 
+    // Drawing object into a canvas
     draw(ctx: CanvasRenderingContext2D, camera): void
     {
         this.position.normalize(this.screenSize);

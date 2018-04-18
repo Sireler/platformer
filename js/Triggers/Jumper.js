@@ -21,6 +21,7 @@ define(["require", "exports", "./Trigger", "../Size", "../Draw/Drawable"], funct
             _this.drawable.size = _this.size;
             return _this;
         }
+        // Action in contact with trigger
         Jumper.prototype.onTrigger = function (obj) {
             obj.impulse.set(this.impulse.x, this.impulse.y);
         };

@@ -9,6 +9,7 @@ define(["require", "exports", "../Position"], function (require, exports, Positi
             this.size = null;
             this.cameraC = 1;
         }
+        // Drawing object into a canvas
         Drawable.prototype.draw = function (ctx, camera) {
             if (!this.size) {
                 ctx.drawImage(this.texture, this.position.x - camera.position.x * this.cameraC, this.position.y - camera.position.y * this.cameraC);

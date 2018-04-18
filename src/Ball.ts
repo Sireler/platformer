@@ -22,6 +22,7 @@ export class Ball extends Drawable
         this.team = null;
     }
 
+    // Getting center of the bottom point of object
     get feetPosition()
     {
         return new ObjectPosition(
@@ -30,6 +31,7 @@ export class Ball extends Drawable
         )
     }
 
+    // Getting center of object
     get center()
     {
         return new ObjectPosition(
@@ -38,6 +40,7 @@ export class Ball extends Drawable
         )
     }
 
+    // checking the contact of objects
     checkHit(ch)
     {
         if (this.team == ch.team) {
@@ -53,9 +56,12 @@ export class Ball extends Drawable
         }
     }
 
-    // groundY: Game.MAX_Y
-    // phys: Game.PHYS
-    // blocks: Game.blocks
+    /**
+     *
+     * @param phys - Game.PHYS
+     * @param groundY - Game.MAX_Y
+     * @param blocks - Game.blocks
+     */
     update(phys, groundY, blocks)
     {
         this.timeToLife--;

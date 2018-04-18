@@ -19,32 +19,31 @@ import {Jumper} from "./Triggers/Jumper";
 
 export class Game {
     FPS: number = 30;
+    // Ground position
     MAX_Y: number = 500;
 
     balls: Ball[];
-    // Блоки
+    // Block objects
     blocks: Block[];
-    // Объекты врагов
+    // Enemy objects
     enemies: Enemy[];
-    // Объекты триггеров
+    // Trigger objects
     triggers: Trigger[];
-
-    // Параметры физики
+    // Physics parameters
     PHYS: PhysicParams;
 
     screen: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
 
-    // Размер канваса для отрисовки
+    // Size of the canvas for rendering
     screenSize: Screen;
 
-    // Персонаж
     character: Character;
 
     keyboard: KeyboardDriver;
     camera: Camera;
 
-    // Цикл игры
+    // Game loop
     interval: number;
     background;
 
@@ -81,7 +80,7 @@ export class Game {
         this.start();
     }
 
-    // Начало игры
+    // Start game, updates, draw objects
     start(): void
     {
         this.interval = window.setInterval(() => {
@@ -97,14 +96,14 @@ export class Game {
         }, 1000 / this.FPS);
     }
 
-    // Конец игры
+    // End game
     end(): void
     {
         clearInterval(this.interval);
         window.location.reload();
     }
 
-    // Камера, отслеживание персонажа
+    // Camera to track character
     moveCamera(): void
     {
         this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
@@ -113,7 +112,7 @@ export class Game {
         }
     }
 
-    // Взаимодействие с персонажем, обновление
+    // Interact with character, update
     moveCharacter(): void
     {
         this.character.isMovedByUser(this.keyboard, this.balls);
@@ -195,7 +194,6 @@ export class Game {
         this.character.draw(this.ctx, this.camera);
     }
 
-    // Отрисовка фона
     drawBackground(): void
     {
         for (var key in this.background) {
@@ -235,6 +233,7 @@ export class Game {
         );
     }
 
+    // Load triggers into Game.triggers
     loadTriggers(): void
     {
         let teleports = new TeleportsData();
@@ -256,7 +255,7 @@ export class Game {
         });
     }
 
-
+    // Load enemies into Game.enemies
     loadEnemies(): void
     {
         let enemies = new EnemiesData();
@@ -265,6 +264,7 @@ export class Game {
         });
     }
 
+    // Load blocks into Game.blocks
     loadBlocks(): void
     {
         let blocks = new BlocksData();
@@ -273,6 +273,7 @@ export class Game {
         });
     }
 
+    // Load background into Game.background
     loadBackground(): void
     {
         this.background.sky = new Background('sprites/bg_sky.png');

@@ -38,6 +38,7 @@ export class Character extends DrawableSet
         this.loadTextures();
     }
 
+    // Getting center of the bottom point of object
     get feetPosition()
     {
         return new ObjectPosition(
@@ -46,6 +47,7 @@ export class Character extends DrawableSet
         );
     }
 
+    // Getting center of object
     get center()
     {
         return new ObjectPosition(
@@ -54,6 +56,7 @@ export class Character extends DrawableSet
         )
     }
 
+    // checking the contact of objects
     checkHit(ch)
     {
         if (this.team == ch.team) {
@@ -69,12 +72,17 @@ export class Character extends DrawableSet
         }
     }
 
+    // Drawing object into a canvas
     draw(ctx, camera)
     {
         super.draw(ctx, this.direction, camera);
     }
 
-    // balls: Game.balls[]
+    /**
+     *
+     * @param {Ball[]} balls - Game.balls
+     *
+     */
     attack(balls: Ball[])
     {
         if (this.attackCooldown > this.attackCooldownDelta) {
@@ -97,6 +105,12 @@ export class Character extends DrawableSet
         }
     }
 
+    /**
+     *
+     * @param {PhysicParams} phys - Game.PHYS
+     * @param {number} groundY - Game.MAX_Y
+     * @param blocks - Game.blocks
+     */
     update(phys: PhysicParams, groundY: number, blocks)
     {
 

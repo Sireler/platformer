@@ -4,6 +4,8 @@ export class TeleportsData
 
     constructor()
     {
+        // (x,y) - position to draw (place of teleport)
+        // (toX, toY) - where will be teleported
         this.data = [
             {
                 x: 200,

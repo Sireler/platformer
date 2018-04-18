@@ -4,6 +4,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
     var Game = /** @class */ (function () {
         function Game(screen) {
             this.FPS = 30;
+            // Ground position
             this.MAX_Y = 500;
             this.screenSize = new Screen_1.Screen();
             this.keyboard = new KeyboardDriver_1.KeyboardDriver();
@@ -31,7 +32,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
             this.loadTriggers();
             this.start();
         }
-        // Начало игры
+        // Start game, updates, draw objects
         Game.prototype.start = function () {
             var _this = this;
             this.interval = window.setInterval(function () {
@@ -45,19 +46,19 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                 _this.moveCamera();
             }, 1000 / this.FPS);
         };
-        // Конец игры
+        // End game
         Game.prototype.end = function () {
             clearInterval(this.interval);
             window.location.reload();
         };
-        // Камера, отслеживание персонажа
+        // Camera to track character
         Game.prototype.moveCamera = function () {
             this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
             if (this.character.position.y < this.screenSize.height / 2) {
                 this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
             }
         };
-        // Взаимодействие с персонажем, обновление
+        // Interact with character, update
         Game.prototype.moveCharacter = function () {
             this.character.isMovedByUser(this.keyboard, this.balls);
             this.character.update(this.PHYS, this.MAX_Y, this.blocks);
@@ -122,7 +123,6 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
             });
             this.character.draw(this.ctx, this.camera);
         };
-        // Отрисовка фона
         Game.prototype.drawBackground = function () {
             for (var key in this.background) {
                 this.background[key].draw(this.ctx, this.camera);
@@ -146,6 +146,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
             }
             this.triggers.push(obj);
         };
+        // Load triggers into Game.triggers
         Game.prototype.loadTriggers = function () {
             var _this = this;
             var teleports = new TeleportsData_1.TeleportsData();
@@ -157,6 +158,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                 _this.createTrigger('Jumper', new Position_1.ObjectPosition(jumper.x, jumper.y), new Position_1.ObjectPosition(jumper.impulseX, jumper.impulseY));
             });
         };
+        // Load enemies into Game.enemies
         Game.prototype.loadEnemies = function () {
             var _this = this;
             var enemies = new EnemiesData_1.EnemiesData();
@@ -164,6 +166,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                 _this.createEnemyRanger(new Position_1.ObjectPosition(enemy.x, enemy.y));
             });
         };
+        // Load blocks into Game.blocks
         Game.prototype.loadBlocks = function () {
             var _this = this;
             var blocks = new BlocksData_1.BlocksData();
@@ -171,6 +174,7 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
                 _this.createBlock(new Position_1.ObjectPosition(block.x, block.y));
             });
         };
+        // Load background into Game.background
         Game.prototype.loadBackground = function () {
             this.background.sky = new Background_1.Background('sprites/bg_sky.png');
             this.background.sky.cameraC = 0;
@@ -184,4 +188,4 @@ define(["require", "exports", "./Background", "./Screen", "./Character", "./Keyb
     }());
     exports.Game = Game;
 });
-//# sourceMappingURL=game.js.map
+//# sourceMappingURL=Game.js.map

@@ -21,6 +21,7 @@ define(["require", "exports", "./Trigger", "../Size", "../Draw/Drawable"], funct
             _this.drawable.size = _this.size;
             return _this;
         }
+        // Action in contact with trigger
         Teleport.prototype.onTrigger = function (obj) {
             obj.position.set(this.moveTo.x, this.moveTo.y);
         };

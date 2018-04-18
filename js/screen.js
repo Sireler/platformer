@@ -1,6 +1,9 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * To store current size of the canvas
+     */
     var Screen = /** @class */ (function () {
         function Screen(width, height) {
             if (width === void 0) { width = 800; }
@@ -12,4 +15,4 @@ define(["require", "exports"], function (require, exports) {
     }());
     exports.Screen = Screen;
 });
-//# sourceMappingURL=screen.js.map
+//# sourceMappingURL=Screen.js.map

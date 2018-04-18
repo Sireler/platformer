@@ -13,10 +13,10 @@ define(["require", "exports"], function (require, exports) {
             this.height = height;
         };
         Size.prototype.isset = function () {
-            return this.width != 0 ? true : false;
+            return this.width != 0;
         };
         return Size;
     }());
     exports.Size = Size;
 });
-//# sourceMappingURL=size.js.map
+//# sourceMappingURL=Size.js.map

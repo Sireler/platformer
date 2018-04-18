@@ -30,6 +30,7 @@ define(["require", "exports", "./Draw/DrawableSet", "./Size", "./Position", "./B
             return _this;
         }
         Object.defineProperty(Character.prototype, "feetPosition", {
+            // Getting center of the bottom point of object
             get: function () {
                 return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
             },
@@ -37,12 +38,14 @@ define(["require", "exports", "./Draw/DrawableSet", "./Size", "./Position", "./B
             configurable: true
         });
         Object.defineProperty(Character.prototype, "center", {
+            // Getting center of object
             get: function () {
                 return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
             },
             enumerable: true,
             configurable: true
         });
+        // checking the contact of objects
         Character.prototype.checkHit = function (ch) {
             if (this.team == ch.team) {
                 return false;
@@ -55,10 +58,15 @@ define(["require", "exports", "./Draw/DrawableSet", "./Size", "./Position", "./B
                 return false;
             }
         };
+        // Drawing object into a canvas
         Character.prototype.draw = function (ctx, camera) {
             _super.prototype.draw.call(this, ctx, this.direction, camera);
         };
-        // balls: Game.balls[]
+        /**
+         *
+         * @param {Ball[]} balls - Game.balls
+         *
+         */
         Character.prototype.attack = function (balls) {
             if (this.attackCooldown > this.attackCooldownDelta) {
                 return;
@@ -78,6 +86,12 @@ define(["require", "exports", "./Draw/DrawableSet", "./Size", "./Position", "./B
                 b.impulse.move(-10, -8);
             }
         };
+        /**
+         *
+         * @param {PhysicParams} phys - Game.PHYS
+         * @param {number} groundY - Game.MAX_Y
+         * @param blocks - Game.blocks
+         */
         Character.prototype.update = function (phys, groundY, blocks) {
             this.impulse.y += phys.gravity;
             this.impulse.x *= phys.windage;
@@ -157,4 +171,4 @@ define(["require", "exports", "./Draw/DrawableSet", "./Size", "./Position", "./B
     }(DrawableSet_1.DrawableSet));
     exports.Character = Character;
 });
-//# sourceMappingURL=character.js.map
+//# sourceMappingURL=Character.js.map

@@ -1,5 +1,8 @@
 import {ObjectPosition} from "./Position";
 
+/**
+ * Camera for track the player
+ */
 export class Camera
 {
     position: ObjectPosition;

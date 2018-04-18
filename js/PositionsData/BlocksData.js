@@ -3,6 +3,7 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var BlocksData = /** @class */ (function () {
         function BlocksData() {
+            // (x,y) - position to draw
             this.data = [
                 {
                     x: 300,

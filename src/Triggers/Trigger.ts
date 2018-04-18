@@ -15,6 +15,7 @@ export abstract class Trigger {
         this.radius = (size.width < size.height) ? size.width / 2 : size.height / 2;
     }
 
+    // returns center of the object
     get center() {
         return new ObjectPosition(
             this.position.x + this.size.width / 2,
@@ -22,14 +23,17 @@ export abstract class Trigger {
         );
     }
 
+    // Drawing object into a canvas
     draw(ctx, camera) {
         if (this.drawable) {
             this.drawable.draw(ctx, camera);
         }
     }
 
+    // method for implementing contact with object
     abstract onTrigger(obj);
 
+    // checking the contact of objects
     checkHit(obj)
     {
         var distance = this.center.distance(obj.center);

@@ -25,6 +25,7 @@ define(["require", "exports", "./Draw/Drawable", "./Size", "./Position"], functi
             return _this;
         }
         Object.defineProperty(Ball.prototype, "feetPosition", {
+            // Getting center of the bottom point of object
             get: function () {
                 return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
             },
@@ -32,12 +33,14 @@ define(["require", "exports", "./Draw/Drawable", "./Size", "./Position"], functi
             configurable: true
         });
         Object.defineProperty(Ball.prototype, "center", {
+            // Getting center of object
             get: function () {
                 return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
             },
             enumerable: true,
             configurable: true
         });
+        // checking the contact of objects
         Ball.prototype.checkHit = function (ch) {
             if (this.team == ch.team) {
                 return false;
@@ -50,9 +53,12 @@ define(["require", "exports", "./Draw/Drawable", "./Size", "./Position"], functi
                 return false;
             }
         };
-        // groundY: Game.MAX_Y
-        // phys: Game.PHYS
-        // blocks: Game.blocks
+        /**
+         *
+         * @param phys - Game.PHYS
+         * @param groundY - Game.MAX_Y
+         * @param blocks - Game.blocks
+         */
         Ball.prototype.update = function (phys, groundY, blocks) {
             this.timeToLife--;
             this.position.move(this.impulse.x, this.impulse.y);

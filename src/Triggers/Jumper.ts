@@ -16,6 +16,7 @@ export class Jumper extends Trigger
         this.drawable.size = this.size;
     }
 
+    // Action in contact with trigger
     onTrigger(obj)
     {
         obj.impulse.set(this.impulse.x, this.impulse.y);
