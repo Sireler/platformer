@@ -15,12 +15,32 @@ define(["require", "exports", "./BlocksData"], function (require, exports, Block
         __extends(EnemiesData, _super);
         function EnemiesData() {
             var _this = _super.call(this) || this;
+            _this.except = [
+                {
+                    x: 1210,
+                    y: 50
+                },
+                {
+                    x: 1070,
+                    y: -50
+                },
+                {
+                    x: 332,
+                    y: 400
+                },
+            ];
             _this.calculate();
             return _this;
         }
-        // calculate Y position
+        // calculate Y position and check except
         EnemiesData.prototype.calculate = function () {
-            this.data.forEach(function (obj) {
+            var _this = this;
+            this.data.forEach(function (obj, i) {
+                _this.except.forEach(function (exc) {
+                    if (obj.x == exc.x && obj.y == exc.y) {
+                        delete _this.data[i];
+                    }
+                });
                 obj.y -= 50;
             });
         };

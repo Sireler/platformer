@@ -18,7 +18,7 @@ import {JumpersData} from "./PositionsData/JumpersData";
 import {Jumper} from "./Triggers/Jumper";
 
 export class Game {
-    FPS: number = 25;
+    FPS: number = 30;
     MAX_Y: number = 500;
 
     balls: Ball[];
