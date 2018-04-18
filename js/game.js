@@ -3,7 +3,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
         function Game(screen) {
-            this.FPS = 25;
+            this.FPS = 30;
             this.MAX_Y = 500;
             this.screenSize = new screen_1.Screen();
             this.keyboard = new KeyboardDriver_1.KeyboardDriver();

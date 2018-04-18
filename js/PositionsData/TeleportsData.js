@@ -9,6 +9,12 @@ define(["require", "exports"], function (require, exports) {
                     y: 450,
                     toX: 500,
                     toY: 150
+                },
+                {
+                    x: 750,
+                    y: 0,
+                    toX: 1300,
+                    toY: -200
                 }
             ];
         }
