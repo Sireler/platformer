@@ -22,25 +22,30 @@ export class Game {
     MAX_Y: number = 500;
 
     balls: Ball[];
+    // Блоки
     blocks: Block[];
+    // Объекты врагов
     enemies: Enemy[];
+    // Объекты триггеров
     triggers: Trigger[];
 
+    // Параметры физики
     PHYS: PhysicParams;
 
     screen: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
+
+    // Размер канваса для отрисовки
     screenSize: Screen;
 
-
+    // Персонаж
     character: Character;
 
     keyboard: KeyboardDriver;
     camera: Camera;
 
-    // game loop
+    // Цикл игры
     interval: number;
-
     background;
 
     constructor(screen) {
@@ -76,6 +81,7 @@ export class Game {
         this.start();
     }
 
+    // Начало игры
     start(): void
     {
         this.interval = window.setInterval(() => {
@@ -91,12 +97,14 @@ export class Game {
         }, 1000 / this.FPS);
     }
 
+    // Конец игры
     end(): void
     {
         clearInterval(this.interval);
         window.location.reload();
     }
 
+    // Камера, отслеживание персонажа
     moveCamera(): void
     {
         this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
@@ -105,6 +113,7 @@ export class Game {
         }
     }
 
+    // Взаимодействие с персонажем, обновление
     moveCharacter(): void
     {
         this.character.isMovedByUser(this.keyboard, this.balls);
@@ -164,6 +173,7 @@ export class Game {
         );
     }
 
+    // Отрисовка объектов игры
     drawObjects(): void
     {
         this.blocks.forEach((block) => {
@@ -185,6 +195,7 @@ export class Game {
         this.character.draw(this.ctx, this.camera);
     }
 
+    // Отрисовка фона
     drawBackground(): void
     {
         for (var key in this.background) {

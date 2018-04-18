@@ -31,6 +31,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.loadTriggers();
             this.start();
         }
+        // Начало игры
         Game.prototype.start = function () {
             var _this = this;
             this.interval = window.setInterval(function () {
@@ -44,16 +45,19 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
                 _this.moveCamera();
             }, 1000 / this.FPS);
         };
+        // Конец игры
         Game.prototype.end = function () {
             clearInterval(this.interval);
             window.location.reload();
         };
+        // Камера, отслеживание персонажа
         Game.prototype.moveCamera = function () {
             this.camera.position.x = this.character.position.x - this.screenSize.width / 2 + this.character.size.width / 2;
             if (this.character.position.y < this.screenSize.height / 2) {
                 this.camera.position.y = this.character.position.y - this.screenSize.height / 2 + this.character.size.height / 2;
             }
         };
+        // Взаимодействие с персонажем, обновление
         Game.prototype.moveCharacter = function () {
             this.character.isMovedByUser(this.keyboard, this.balls);
             this.character.update(this.PHYS, this.MAX_Y, this.blocks);
@@ -101,6 +105,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
         Game.prototype.clearCanvas = function () {
             this.ctx.clearRect(0, 0, this.screenSize.width, this.screenSize.height);
         };
+        // Отрисовка объектов игры
         Game.prototype.drawObjects = function () {
             var _this = this;
             this.blocks.forEach(function (block) {
@@ -117,6 +122,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             });
             this.character.draw(this.ctx, this.camera);
         };
+        // Отрисовка фона
         Game.prototype.drawBackground = function () {
             for (var key in this.background) {
                 this.background[key].draw(this.ctx, this.camera);
