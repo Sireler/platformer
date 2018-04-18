@@ -11,6 +11,7 @@ import {BlocksData} from "./BlocksData";
 import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
 import {EnemiesData} from "./EnemiesData";
+import {Trigger} from "./Trigger";
 
 export class Game {
     FPS: number = 25;
@@ -19,6 +20,7 @@ export class Game {
     balls: Ball[];
     blocks: Block[];
     enemies: Enemy[];
+    triggers: Trigger[];
 
     PHYS: PhysicParams;
 
@@ -46,6 +48,7 @@ export class Game {
         this.balls = [];
         this.blocks = [];
         this.enemies = [];
+        this.triggers = [];
 
         this.screen = screen;
         screen.width = this.screenSize.width;
@@ -194,6 +197,11 @@ export class Game {
         blocks.data.forEach((block) => {
             this.createBlock(new ObjectPosition(block.x, block.y));
         });
+    }
+
+    createTrigger(): void
+    {
+        let trigger = new Trigger()
     }
 
     //

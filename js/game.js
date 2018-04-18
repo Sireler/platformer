@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData", "./Trigger"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Trigger_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -12,6 +12,7 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.balls = [];
             this.blocks = [];
             this.enemies = [];
+            this.triggers = [];
             this.screen = screen;
             screen.width = this.screenSize.width;
             screen.height = this.screenSize.height;
@@ -123,6 +124,9 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             blocks.data.forEach(function (block) {
                 _this.createBlock(new position_1.ObjectPosition(block.x, block.y));
             });
+        };
+        Game.prototype.createTrigger = function () {
+            var trigger = new Trigger_1.Trigger();
         };
         //
         Game.prototype.loadBackground = function () {
