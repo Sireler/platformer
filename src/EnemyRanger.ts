@@ -1,6 +1,6 @@
 import {Enemy} from "./Enemy";
 import {SimpleArtificialIntelligence} from "./SimpleArtificialIntelligence";
-import {Size} from "./size";
+import {Size} from "./Size";
 
 export class EnemyRanger extends Enemy implements SimpleArtificialIntelligence
 {

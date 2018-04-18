@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./character"], function (require, exports, character_1) {
+define(["require", "exports", "./Character"], function (require, exports, Character_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Enemy = /** @class */ (function (_super) {
@@ -19,7 +19,7 @@ define(["require", "exports", "./character"], function (require, exports, charac
             return _this;
         }
         return Enemy;
-    }(character_1.Character));
+    }(Character_1.Character));
     exports.Enemy = Enemy;
 });
 //# sourceMappingURL=Enemy.js.map

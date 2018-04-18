@@ -1,6 +1,6 @@
-import {Drawable} from "./drawable";
-import {Size} from "./size";
-import {ObjectPosition} from "./position";
+import {Drawable} from "./Drawable";
+import {Size} from "./Size";
+import {ObjectPosition} from "./Position";
 
 export class Ball extends Drawable
 {

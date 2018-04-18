@@ -1,5 +1,5 @@
-import {Size} from "./size";
-import {ObjectPosition} from "./position";
+import {Size} from "./Size";
+import {ObjectPosition} from "./Position";
 
 export class Drawable
 {

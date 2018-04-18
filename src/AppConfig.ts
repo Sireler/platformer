@@ -1,5 +1,4 @@
-import {Game} from "./game";
-import {Character} from "./character";
+import {Game} from "./Game";
 
 require(
     ['Game'],

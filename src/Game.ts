@@ -1,12 +1,12 @@
-import {Background} from "./background";
-import {Screen} from "./screen";
-import {Character} from "./character";
+import {Background} from "./Background";
+import {Screen} from "./Screen";
+import {Character} from "./Character";
 import {KeyboardDriver} from "./KeyboardDriver";
 import {Camera} from "./Camera";
 import {PhysicParams} from "./PhysicParams";
 import {Ball} from "./Ball";
 import {Block} from "./Block";
-import {ObjectPosition} from "./position";
+import {ObjectPosition} from "./Position";
 import {BlocksData} from "./PositionsData/BlocksData";
 import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
@@ -273,7 +273,6 @@ export class Game {
         });
     }
 
-    //
     loadBackground(): void
     {
         this.background.sky = new Background('sprites/bg_sky.png');

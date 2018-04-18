@@ -1,6 +1,6 @@
-import {Drawable} from "./drawable";
-import {Size} from "./size";
-import {Screen} from "./screen";
+import {Drawable} from "./Drawable";
+import {Size} from "./Size";
+import {Screen} from "./Screen";
 
 export class Background extends Drawable
 {

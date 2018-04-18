@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./drawable", "./size"], function (require, exports, drawable_1, size_1) {
+define(["require", "exports", "./Drawable", "./Size"], function (require, exports, Drawable_1, Size_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Block = /** @class */ (function (_super) {
@@ -16,11 +16,11 @@ define(["require", "exports", "./drawable", "./size"], function (require, export
         function Block(position) {
             var _this = _super.call(this, 'sprites/block.png') || this;
             _this.position = position;
-            _this.size = new size_1.Size(32, 32);
+            _this.size = new Size_1.Size(32, 32);
             return _this;
         }
         return Block;
-    }(drawable_1.Drawable));
+    }(Drawable_1.Drawable));
     exports.Block = Block;
 });
 //# sourceMappingURL=Block.js.map

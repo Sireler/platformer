@@ -8,15 +8,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./drawable", "./size", "./screen"], function (require, exports, drawable_1, size_1, screen_1) {
+define(["require", "exports", "./Drawable", "./Size", "./Screen"], function (require, exports, Drawable_1, Size_1, Screen_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Background = /** @class */ (function (_super) {
         __extends(Background, _super);
         function Background(src) {
             var _this = _super.call(this, src) || this;
-            _this.screenSize = new screen_1.Screen();
-            _this.size = new size_1.Size(_this.screenSize.width, _this.screenSize.height);
+            _this.screenSize = new Screen_1.Screen();
+            _this.size = new Size_1.Size(_this.screenSize.width, _this.screenSize.height);
             return _this;
         }
         Background.prototype.draw = function (ctx, camera) {
@@ -31,7 +31,7 @@ define(["require", "exports", "./drawable", "./size", "./screen"], function (req
             _super.prototype.draw.call(this, ctx, camera);
         };
         return Background;
-    }(drawable_1.Drawable));
+    }(Drawable_1.Drawable));
     exports.Background = Background;
 });
 //# sourceMappingURL=background.js.map

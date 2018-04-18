@@ -1,4 +1,4 @@
-define(["require", "exports", "../position"], function (require, exports, position_1) {
+define(["require", "exports", "../Position"], function (require, exports, Position_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Trigger = /** @class */ (function () {
@@ -10,7 +10,7 @@ define(["require", "exports", "../position"], function (require, exports, positi
         }
         Object.defineProperty(Trigger.prototype, "center", {
             get: function () {
-                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
+                return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
             },
             enumerable: true,
             configurable: true

@@ -1,9 +1,9 @@
-define(["require", "exports", "./position"], function (require, exports, position_1) {
+define(["require", "exports", "./Position"], function (require, exports, Position_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Camera = /** @class */ (function () {
         function Camera() {
-            this.position = new position_1.ObjectPosition();
+            this.position = new Position_1.ObjectPosition();
         }
         return Camera;
     }());

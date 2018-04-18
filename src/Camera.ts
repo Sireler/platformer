@@ -1,4 +1,4 @@
-import {ObjectPosition} from "./position";
+import {ObjectPosition} from "./Position";
 
 export class Camera
 {

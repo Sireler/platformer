@@ -8,15 +8,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./Trigger", "../size", "../drawable"], function (require, exports, Trigger_1, size_1, drawable_1) {
+define(["require", "exports", "./Trigger", "../Size", "../Drawable"], function (require, exports, Trigger_1, Size_1, Drawable_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Teleport = /** @class */ (function (_super) {
         __extends(Teleport, _super);
         function Teleport(position, moveTo) {
-            var _this = _super.call(this, position, new size_1.Size(32, 32)) || this;
+            var _this = _super.call(this, position, new Size_1.Size(32, 32)) || this;
             _this.moveTo = moveTo;
-            _this.drawable = new drawable_1.Drawable('sprites/portal.png');
+            _this.drawable = new Drawable_1.Drawable('sprites/portal.png');
             _this.drawable.position = _this.position;
             _this.drawable.size = _this.size;
             return _this;

@@ -8,14 +8,14 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"], function (require, exports, DrawableSet_1, size_1, position_1, Ball_1) {
+define(["require", "exports", "./DrawableSet", "./Size", "./Position", "./Ball"], function (require, exports, DrawableSet_1, Size_1, Position_1, Ball_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Character = /** @class */ (function (_super) {
         __extends(Character, _super);
         function Character(srcs) {
             var _this = _super.call(this, srcs) || this;
-            _this.size = new size_1.Size(32, 32);
+            _this.size = new Size_1.Size(32, 32);
             _this.speed = 3;
             _this.jumpPower = 10;
             _this.direction = "right";
@@ -25,20 +25,20 @@ define(["require", "exports", "./DrawableSet", "./size", "./position", "./Ball"]
             _this.team = "alliers";
             _this.radius = _this.size.width / 2 - 4;
             _this.ballsprite = 'sprites/waterball.png';
-            _this.impulse = new position_1.ObjectPosition(0, 0);
+            _this.impulse = new Position_1.ObjectPosition(0, 0);
             _this.loadTextures();
             return _this;
         }
         Object.defineProperty(Character.prototype, "feetPosition", {
             get: function () {
-                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
+                return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(Character.prototype, "center", {
             get: function () {
-                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
+                return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
             },
             enumerable: true,
             configurable: true

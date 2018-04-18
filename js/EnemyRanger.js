@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./Enemy", "./size"], function (require, exports, Enemy_1, size_1) {
+define(["require", "exports", "./Enemy", "./Size"], function (require, exports, Enemy_1, Size_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var EnemyRanger = /** @class */ (function (_super) {
@@ -18,7 +18,7 @@ define(["require", "exports", "./Enemy", "./size"], function (require, exports, 
                 right: "sprites/enemy1.png",
                 left: "sprites/enemy2.png"
             }) || this;
-            _this.size = new size_1.Size(32, 32);
+            _this.size = new Size_1.Size(32, 32);
             _this.position = position;
             _this.speed = 2;
             _this.blocks = blocks;

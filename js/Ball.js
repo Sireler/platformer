@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./drawable", "./size", "./position"], function (require, exports, drawable_1, size_1, position_1) {
+define(["require", "exports", "./Drawable", "./Size", "./Position"], function (require, exports, Drawable_1, Size_1, Position_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Ball = /** @class */ (function (_super) {
@@ -16,8 +16,8 @@ define(["require", "exports", "./drawable", "./size", "./position"], function (r
         function Ball(src, fps) {
             if (fps === void 0) { fps = 30; }
             var _this = _super.call(this, src) || this;
-            _this.size = new size_1.Size(16, 16);
-            _this.impulse = new position_1.ObjectPosition();
+            _this.size = new Size_1.Size(16, 16);
+            _this.impulse = new Position_1.ObjectPosition();
             _this.bounce = 0.7;
             _this.timeToLife = fps * 5;
             _this.radius = _this.size.width / 2;
@@ -26,14 +26,14 @@ define(["require", "exports", "./drawable", "./size", "./position"], function (r
         }
         Object.defineProperty(Ball.prototype, "feetPosition", {
             get: function () {
-                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
+                return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height);
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(Ball.prototype, "center", {
             get: function () {
-                return new position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
+                return new Position_1.ObjectPosition(this.position.x + this.size.width / 2, this.position.y + this.size.height / 2);
             },
             enumerable: true,
             configurable: true
@@ -99,7 +99,7 @@ define(["require", "exports", "./drawable", "./size", "./position"], function (r
             }
         };
         return Ball;
-    }(drawable_1.Drawable));
+    }(Drawable_1.Drawable));
     exports.Ball = Ball;
 });
 //# sourceMappingURL=Ball.js.map

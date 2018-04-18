@@ -1,7 +1,7 @@
 import {Trigger} from "./Trigger";
-import {Size} from "../size";
-import {ObjectPosition} from "../position";
-import {Drawable} from "../drawable";
+import {Size} from "../Size";
+import {ObjectPosition} from "../Position";
+import {Drawable} from "../Drawable";
 
 export class Teleport extends Trigger
 {

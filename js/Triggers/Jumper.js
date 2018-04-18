@@ -8,14 +8,14 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./Trigger", "../size", "../drawable"], function (require, exports, Trigger_1, size_1, drawable_1) {
+define(["require", "exports", "./Trigger", "../Size", "../Drawable"], function (require, exports, Trigger_1, Size_1, Drawable_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jumper = /** @class */ (function (_super) {
         __extends(Jumper, _super);
         function Jumper(position, impulse) {
-            var _this = _super.call(this, position, new size_1.Size(32, 32)) || this;
-            _this.drawable = new drawable_1.Drawable('sprites/jumper.png');
+            var _this = _super.call(this, position, new Size_1.Size(32, 32)) || this;
+            _this.drawable = new Drawable_1.Drawable('sprites/jumper.png');
             _this.impulse = impulse;
             _this.drawable.position = _this.position;
             _this.drawable.size = _this.size;
