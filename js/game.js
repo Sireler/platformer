@@ -1,4 +1,4 @@
-define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./BlocksData", "./EnemyRanger", "./EnemiesData", "./Teleport"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Teleport_1) {
+define(["require", "exports", "./background", "./screen", "./character", "./KeyboardDriver", "./Camera", "./PhysicParams", "./Block", "./position", "./PositionsData/BlocksData", "./EnemyRanger", "./PositionsData/EnemiesData", "./Teleport", "./PositionsData/TeleportsData"], function (require, exports, background_1, screen_1, character_1, KeyboardDriver_1, Camera_1, PhysicParams_1, Block_1, position_1, BlocksData_1, EnemyRanger_1, EnemiesData_1, Teleport_1, TeleportsData_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Game = /** @class */ (function () {
@@ -132,7 +132,11 @@ define(["require", "exports", "./background", "./screen", "./character", "./Keyb
             this.triggers.push(new Teleport_1.Teleport(position, moveTo));
         };
         Game.prototype.loadTriggers = function () {
-            this.createTrigger(new position_1.ObjectPosition(200, 200), new position_1.ObjectPosition(400, 400));
+            var _this = this;
+            var triggers = new TeleportsData_1.TeleportsData();
+            triggers.data.forEach(function (trigger) {
+                _this.createTrigger(new position_1.ObjectPosition(trigger.x, trigger.y), new position_1.ObjectPosition(trigger.toX, trigger.toY));
+            });
         };
         Game.prototype.loadEnemies = function () {
             var _this = this;

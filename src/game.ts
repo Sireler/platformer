@@ -7,12 +7,13 @@ import {PhysicParams} from "./PhysicParams";
 import {Ball} from "./Ball";
 import {Block} from "./Block";
 import {ObjectPosition} from "./position";
-import {BlocksData} from "./BlocksData";
+import {BlocksData} from "./PositionsData/BlocksData";
 import {EnemyRanger} from "./EnemyRanger";
 import {Enemy} from "./Enemy";
-import {EnemiesData} from "./EnemiesData";
+import {EnemiesData} from "./PositionsData/EnemiesData";
 import {Trigger} from "./Trigger";
 import {Teleport} from "./Teleport";
+import {TeleportsData} from "./PositionsData/TeleportsData";
 
 export class Game {
     FPS: number = 25;
@@ -212,7 +213,13 @@ export class Game {
 
     loadTriggers(): void
     {
-        this.createTrigger(new ObjectPosition(200,200), new ObjectPosition(400, 400));
+        let triggers = new TeleportsData();
+        triggers.data.forEach((trigger) => {
+            this.createTrigger(
+                new ObjectPosition(trigger.x, trigger.y),
+                new ObjectPosition(trigger.toX, trigger.toY)
+            );
+        });
     }
 
 

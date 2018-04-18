@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./PositionsData/BlocksData"], function (require, exports, BlocksData_1) {
+define(["require", "exports", "./BlocksData"], function (require, exports, BlocksData_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var EnemiesData = /** @class */ (function (_super) {
