@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./Trigger", "../Size", "../Drawable"], function (require, exports, Trigger_1, Size_1, Drawable_1) {
+define(["require", "exports", "./Trigger", "../Size", "../Draw/Drawable"], function (require, exports, Trigger_1, Size_1, Drawable_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Jumper = /** @class */ (function (_super) {

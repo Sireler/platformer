@@ -1,4 +1,4 @@
-import {Drawable} from "./Drawable";
+import {Drawable} from "./Draw/Drawable";
 import {Size} from "./Size";
 import {ObjectPosition} from "./Position";
 

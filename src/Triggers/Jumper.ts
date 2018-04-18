@@ -1,6 +1,6 @@
 import {Trigger} from "./Trigger";
 import {Size} from "../Size";
-import {Drawable} from "../Drawable";
+import {Drawable} from "../Draw/Drawable";
 import {ObjectPosition} from "../Position";
 
 export class Jumper extends Trigger

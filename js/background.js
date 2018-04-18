@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./Drawable", "./Size", "./Screen"], function (require, exports, Drawable_1, Size_1, Screen_1) {
+define(["require", "exports", "./Draw/Drawable", "./Size", "./Screen"], function (require, exports, Drawable_1, Size_1, Screen_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Background = /** @class */ (function (_super) {

@@ -1,4 +1,4 @@
-import {DrawableSet} from "./DrawableSet";
+import {DrawableSet} from "./Draw/DrawableSet";
 import {Size} from "./Size";
 import {ObjectPosition} from "./Position";
 import {KeyboardDriver} from "./KeyboardDriver";

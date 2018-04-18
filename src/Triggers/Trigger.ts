@@ -1,6 +1,6 @@
 import {ObjectPosition} from "../Position";
 import {Size} from "../Size";
-import {Drawable} from "../Drawable";
+import {Drawable} from "../Draw/Drawable";
 
 export abstract class Trigger {
     position: ObjectPosition;

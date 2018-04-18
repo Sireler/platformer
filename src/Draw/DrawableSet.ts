@@ -1,5 +1,5 @@
-import {ObjectPosition} from "./Position";
-import {Size} from "./Size";
+import {ObjectPosition} from "../Position";
+import {Size} from "../Size";
 
 export class DrawableSet
 {
