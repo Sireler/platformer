@@ -1,8 +1,8 @@
 import {Enemy} from "./Enemy";
-import {SimpleArtificialIntelligence} from "./SimpleArtificialIntelligence";
+import {SimpleArtificialIntelligenceInterface} from "./SimpleArtificialIntelligenceInterface";
 import {Size} from "./Size";
 
-export class EnemyRanger extends Enemy implements SimpleArtificialIntelligence
+export class EnemyRanger extends Enemy implements SimpleArtificialIntelligenceInterface
 {
     blocks;
     balls;
