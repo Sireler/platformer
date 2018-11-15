@@ -1,3 +1,3 @@
 # platformer
 
-Sipmple platform game 
+Simple platformer game
